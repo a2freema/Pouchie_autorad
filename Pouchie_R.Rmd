@@ -1,37 +1,30 @@
 ---
 title: Oxytocin and Vasopressin Receptors in the Pouched Rat
 author:
-  - name: Alice Anonymous
-    email: alice@example.com
-    affiliation: Some Institute of Technology
+  - name: Samanta Arenas
+    email: sa658@cornell.edu
+    affiliation: Cornell University
+  - name: Angela R. Freeman
+    email: arf86@cornell.edu
+    affiliation: Cornell University
+  - name: Alexander G. Ophir
+    email: ophir@cornell.edu
+    affiliation: Cornell University
     footnote: 1
-  - name: Bob Security
-    email: bob@example.com
-    affiliation: Another University
-  - name: Cat Memes
-    email: cat@example.com
-    affiliation: Another University
-    footnote: 2
-  - name: Derek Zoolander
-    email: derek@example.com
-    affiliation: Some Institute of Technology
-    footnote: 2
 address:
-  - code: Some Institute of Technology
-    address: Department, Street, City, State, Zip
-  - code: Another University
-    address: Department, Street, City, State, Zip
+  - code: Cornell University
+    address: Department of Psychology, Ithaca, NY, 14853
+
 footnote:
   - code: 1
     text: "Corresponding Author"
-  - code: 2
-    text: "Equal contribution"
+
 abstract: |
   This is the abstract.
 
   It consists of two paragraphs.
 
-journal: "An awesome journal"
+journal: "Journal of Neuroscience"
 date: "`r Sys.Date()`"
 bibliography: mybibfile.bib
 #linenumbers: true
@@ -42,6 +35,12 @@ output: rticles::elsevier_article
 
 _Text based on elsarticle sample manuscript, see [http://www.elsevier.com/author-schemas/latex-instructions#elsarticle](http://www.elsevier.com/author-schemas/latex-instructions#elsarticle)_
 
+```{r}
+x <- c(1,6,8,12,10)
+y <- c(4,5,6,7,8)
+
+plot(x,y)
+```
 
 The Elsevier article class
 ==========================
