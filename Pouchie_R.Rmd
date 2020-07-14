@@ -1,5 +1,5 @@
 ---
-title: Short Paper
+title: Oxytocin and Vasopressin Receptors in the Pouched Rat
 author:
   - name: Alice Anonymous
     email: alice@example.com
