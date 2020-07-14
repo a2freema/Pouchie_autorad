@@ -7,13 +7,18 @@ author:
   - name: Angela R. Freeman
     email: arf86@cornell.edu
     affiliation: Cornell University
+  - name: Bhupinder Singh
+    email: bs256@cornell.edu
+    affiliation: Vetschool
   - name: Alexander G. Ophir
     email: ophir@cornell.edu
     affiliation: Cornell University
     footnote: 1
 address:
   - code: Cornell University
-    address: Department of Psychology, Ithaca, NY, 14853
+    address: Cornell University, Department of Psychology, Ithaca, NY, 14853
+  - code: Vetschool
+    address: Cornell University, Department of Veterinary Medicine, Ithaca, NY, 14853
 
 footnote:
   - code: 1
@@ -26,8 +31,8 @@ abstract: |
 
 journal: "Journal of Neuroscience"
 date: "`r Sys.Date()`"
-bibliography: mybibfile.bib
-#linenumbers: true
+bibliography: library.bib
+linenumbers: true
 #numbersections: true
 csl: elsevier-harvard.csl
 output: rticles::elsevier_article
@@ -57,7 +62,7 @@ manager of your TeX installation, which is typically TeX Live or MikTeX.
 Once the package is properly installed, you can use the document class
 *elsarticle* to create a manuscript. Please make sure that your
 manuscript follows the guidelines in the Guide for Authors of the
-relevant journal. It is not necessary to typeset your manuscript in
+relevant journal.[@davisAlarmCallingRichardson1984; @hareJuvenileRichardsonGround1998] It is not necessary to typeset your manuscript in
 exactly the same way as an article, unless you are submitting to a
 camera-ready copy (CRC) journal.
 
@@ -96,7 +101,7 @@ to conform your choice to the journal you are submitting to.
 Bibliography styles
 ===================
 
-There are various bibliography styles available. You can select the
+There are various bibliography styles available [@Austad1985]. You can select the
 style of your choice in the preamble of this document. These styles are
 Elsevier styles based on standard styles like Harvard and Vancouver.
 Please use BibTeX to generate your bibliography and include DOIs
