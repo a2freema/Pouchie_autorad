@@ -19,16 +19,12 @@ address:
     address: Cornell University, Department of Psychology, Ithaca, NY, 14853
   - code: Vetschool
     address: Cornell University, Department of Veterinary Medicine, Ithaca, NY, 14853
-
 footnote:
   - code: 1
     text: "Corresponding Author"
-
 abstract: |
   This is the abstract.
-
   It consists of two paragraphs.
-
 journal: "Journal of Neuroscience"
 date: "`r Sys.Date()`"
 bibliography: library.bib
@@ -36,9 +32,477 @@ linenumbers: true
 #numbersections: true
 csl: elsevier-harvard.csl
 output: rticles::elsevier_article
+editor_options: 
+  chunk_output_type: console
 ---
+```{r, echo = FALSE}
+# For this document to work well, I recommend that you have the packages citr, rticles installed and loaded.
 
-_Text based on elsarticle sample manuscript, see [http://www.elsevier.com/author-schemas/latex-instructions#elsarticle](http://www.elsevier.com/author-schemas/latex-instructions#elsarticle)_
+# For more information on Rmarkdown, check out https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+
+# The paths to the datafiles used for the manuscript need to be changed to where you have these files on your computer.
+
+#The bibliography file should be in your project directory (where this Rmarkdown file is) for references to render properly.
+
+#To 'track changes' see the syntax used here: http://criticmarkup.com/users-guide.php
+# However, comments {>> This appears as a comment in rendering to word docs<<}
+# are always welcome.
+
+OTRdata <-read.csv("C:/Users/HP/Documents/Work/Pouched_rat/autorad pouchie/Pouchie Autorad OTR FINAL.csv")
+V1data <- read.csv("C:/Users/HP/Documents/Work/Pouched_rat/autorad pouchie/Pouchie Autorad V1ar FINAL.csv")
+OTRPCAdata <-read.csv("C:/Users/HP/Documents/Work/Pouched_rat/autorad pouchie/Pouchie Autorad OTR PCA.csv")
+V1PCAdata <-read.csv(file="C:/Users/HP/Documents/Work/Pouched_rat/autorad pouchie/Pouchie Autorad V1ar PCA.csv")
+
+```
+
+
+
+# Introduction 
+
+The neuropeptides, oxytocin (OT) and vasopressin (VP), have receptor distributions in the brain that can modulate a variety of social behaviors such as parental care, affiliation, and aggression, among other behaviors [@caldwellOxytocinVasopressinMotivational2015]. The densities of their associated receptors, oxytocin (OTR) and vasopressin (V1aR and V1bR) receptors, are often species- and sex-dependent.
+ 
+
+>- What do we know about the distribution and relative densities of receptors (i.e. what can it tell us, what’s been done on behavior?) 
+
+>-How might life history differences play into patterning of central distribution of these receptors? 
+
+>-What tends to be conserved? 
+
+>-How does comparative analysis help? [@kellyComparedWhatWhat2015] 
+
+>-Why did we do this study? What were we examining? 
+
+>-We wanted to describe the presence and relative density of OTR and V1aR in pouched rat brains in males and females, to see if there were differences in presence and density between sexes 
+
+>-We wanted to explore how the patterning of these receptors might differ from other rodents and see if it further supports the ideas found in the recent metaanalysis [@freemanComparisonDistributionOxytocin2020](see where pouched rats fall in this framework) 
+
+ 
+ 
+
+# Methods 
+
+
+
+>-Brain removal 
+
+>-Statement of animal welfare/approvals 
+
+ 
+
+Ten male and ten female brains were stored at -80ºC temperature. Brains were split into two hemispheres and coronally sectioned at 20µm thick. Due to the large size of the pouched rat brains, only the left hemisphere was sectioned if it was in good formation, and each section kept was followed by two discarded sections. 
+
+ 
+
+>-Thus we mounted every… third section,  
+
+ 
+
+>-The cerebellum was removed and the olfactory bulbs placed in centrifuge tubes. 
+4
+>- Brain sections were placed onto six sets of Superfrost Plus Plexiglas Slides (Fisher Scientific, Pittsburg, PA USA). Slides were stored in the -80ºC freezer until they were needed for autoradiography labeling to visualize receptor density. 125I radioligands were used to label oxytocin receptor (ornithine vasopressin analog, 125I-OVTA); NEX 254, PerkinElmer; Waltham, MA) or vasopressin 1a receptor (vasopressin (Linear), V-1A antagonist (Phenylacetyl1, 0-Me-D-Tyr2 [125I-Arg6]-); NEX 310, PerkinElmer), as described by (Ophir et al. 2013).
+
+ 
+
+>- Change this. 
+
+ 
+
+The radiolabeled slides were left stored in film cassettes and later exposed to phosphoreimaging screens (Fujifilm, Tokyo, Japan) for 23 hours. Under dark light, the screens were removed from the cassettes and placed in a Typhoon FLA 7000 laser scanner (GE Healthcare, Marlborough, MA, USA). The screens were then analyzed using ImageJ Version ? . Three sequential slices were measured for density by encircling the regions of interest using the ImageJ program. The program automatically calculated mean values and area for regions of interest and background. 125I-labeled radiographic microscales were used to produce decay formulas in order to transform average intensity measures into standardized disintegrations per minute (dpm) values.  
+
+ 
+
+Transformed values from the cortex taken as background from the same sequential (every 3rd) slices at each region of interest were subtracted from the standardized values of these regions of interest to calculate the final mea4n receptor density value (units are dpm/mg tissue equivalence (TE); for 1 mg in rat brain).  
+
+ 
+
+>-cresyl violet 
+
+>-use of atlas 
+
+
+OTR was measured in the olfactory bulb (OB), anterior olfactory nucleus (AON), prefrontal cortex (PFC), piriform cortex (Pir), nucleus accumbens (NAcc), lateral septum (LS), endopiriform (Den), claustrum (VCL), lateral bed nucleus of the stria terminalis (BSTl), medial bed nucleus of the stria terminalis (BSTm), ventral bed nucleus of the stria terminalis (BSTv), ventral pallidum (VPall), medial preoptic area (MPOA), anterior hypothalamus (AH), paraventricular thalamus (PVT), suprachiasmatic nucleus (SCN), paraventricular nucleus (PVN), magnocellular hypothalamic nucleus (MCPO), medial habenula (MHb), central amygdala (CeA), medial amygdala (MeA), basolateral amygdala (BLA), ventromedial hypothalamus (VMH), zona incerta (ZIR), lateral hypothalamus (PrFLH), hippocampal CA1, hippocampal CA2, hippocampal CA3, dentate gyrus (DG), premammilary ventral nucleus (PMV), ventral tegmental area (VTA), periaqueductal gray (PAG), medial geniculate (MG), superior colliculus (SuG), and the ventral CA3. V1aR was measured in the same regions except for the MCPO and the MHb. 
+
+ 
+
+>-statistical methods 
+
+ 
+
+# Results 
+
+```{r, echo=FALSE, results="hide", message=FALSE}
+# load all necessary libraries ----
+library(ade4)
+library(ade4TkGUI)
+library(exactRankTests)
+library(ggplot2)
+library(ggthemes)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(extrafont)
+library(car)
+library(corrplot)
+library(tidyverse)
+library(ggpubr)
+
+
+#
+serr <- function(x) sqrt(var(x,na.rm=TRUE)/length(na.omit(x)))
+
+theme_alex <- function(base_size=24, base_family ="Arial") {
+  theme_few() %+replace%
+    theme(axis.ticks = element_blank(), legend.title=element_text(size=24, face="bold"), 
+          axis.title=element_text(size=24,face="bold"),
+          axis.line = element_line(colour = "black"),
+          panel.border = element_blank(),
+          legend.position = "right")
+  
+}
+
+
+
+summary(OTRdata)
+summary(V1data)
+
+summary(lm(OB..final. ~ Sex, data=OTRdata))
+
+# Run t-tests ----
+t.test(OB..final. ~Sex, data=OTRdata)
+t.test(AON..final. ~Sex, data=OTRdata)
+t.test(mPFC..final. ~Sex, data=OTRdata)
+t.test(mPFC..final..1 ~Sex, data=OTRdata)
+t.test(Nacc..final. ~Sex, data=OTRdata)
+t.test(Nacc..final..1 ~Sex, data=OTRdata)
+t.test(Caudate.P..Final. ~Sex, data=OTRdata)
+t.test(PirCtx..final. ~Sex, data=OTRdata)
+t.test(LS.I..final. ~Sex, data=OTRdata)
+t.test(LS.D..final. ~Sex, data=OTRdata)
+t.test(LSV..final. ~Sex, data=OTRdata)
+t.test(Endopir..final. ~Sex, data=OTRdata)
+t.test(Claustrum..final. ~Sex, data=OTRdata)
+t.test(BSTm..final. ~Sex, data=OTRdata)
+t.test(BSTi..final. ~Sex, data=OTRdata)
+t.test(BSTv..final. ~Sex, data=OTRdata)
+t.test(Vpall..final. ~Sex, data=OTRdata)
+t.test(MPOA..final. ~Sex, data=OTRdata)
+t.test(AH..final. ~Sex, data=OTRdata)
+t.test(PVT..final. ~Sex, data=OTRdata)
+t.test(SCN..final. ~Sex, data=OTRdata)
+t.test(PVN..final. ~Sex, data=OTRdata)
+t.test(MHypNuc..final. ~Sex, data=OTRdata)
+t.test(Med.Habenula..final. ~Sex, data=OTRdata)
+t.test(CeA..final. ~Sex, data=OTRdata)
+t.test(MeA..final. ~Sex, data=OTRdata)
+t.test(BLA..final. ~Sex, data=OTRdata)
+t.test(VMH..final. ~Sex, data=OTRdata)
+t.test(Zona.Incert..final. ~Sex, data=OTRdata)
+t.test(Lat.Hyp..final. ~Sex, data=OTRdata)
+t.test(CA1..final. ~Sex, data=OTRdata)
+t.test(CA2..final. ~Sex, data=OTRdata)
+t.test(CA3..final. ~Sex, data=OTRdata)
+t.test(DG..final. ~Sex, data=OTRdata)
+t.test(Premamm..final. ~Sex, data=OTRdata)
+t.test(VTA..final. ~Sex, data=OTRdata)
+t.test(PAG..final. ~Sex, data=OTRdata)
+t.test(Mgen..final. ~Sex, data=OTRdata)
+scol.OT <- t.test(Scol..final. ~Sex, data=OTRdata)
+t.test(Ventral.CA3..final. ~Sex, data=OTRdata)
+
+t.test(OB..final. ~Sex, data=V1data)
+t.test(AON..final. ~Sex, data=V1data)
+t.test(mPFC..final. ~Sex, data=V1data)
+t.test(mPFC..final..1 ~Sex, data=V1data)
+t.test(Nacc..final. ~Sex, data=V1data)
+t.test(Nacc..final..1 ~Sex, data=V1data)
+t.test(Caudate.P..Final. ~Sex, data=V1data)
+t.test(PirCtx..final. ~Sex, data=V1data)
+t.test(LS.I..final. ~Sex, data=V1data)
+t.test(LS.D..final. ~Sex, data=V1data)
+t.test(LSV..final. ~Sex, data=V1data)
+t.test(Endopir..final. ~Sex, data=V1data)
+t.test(Claustrum..final. ~Sex, data=V1data)
+t.test(BSTm..final. ~Sex, data=V1data)
+t.test(BSTi..final. ~Sex, data=V1data)
+t.test(BSTv..final. ~Sex, data=V1data)
+t.test(Vpall..final. ~Sex, data=V1data)
+t.test(MPOA..final. ~Sex, data=V1data)
+t.test(AH..final. ~Sex, data=V1data)
+t.test(PVT..final. ~Sex, data=V1data)
+t.test(SCN..final. ~Sex, data=V1data)
+t.test(PVN..final. ~Sex, data=V1data)
+#t.test(MHypNuc..final. ~Sex, data=V1data)
+#t.test(Med.Habenula..final. ~Sex, data=V1data)
+t.test(CeA..final. ~Sex, data=V1data)
+t.test(MeA..final. ~Sex, data=V1data)
+t.test(BLA..final. ~Sex, data=V1data)
+t.test(VMH..final. ~Sex, data=V1data)
+t.test(Zona.Incert..final. ~Sex, data=V1data)
+t.test(Lat.Hyp..final. ~Sex, data=V1data)
+t.test(CA1..final. ~Sex, data=V1data)
+t.test(CA2..final. ~Sex, data=V1data)
+t.test(CA3..final. ~Sex, data=V1data)
+t.test(DG..final. ~Sex, data=V1data)
+t.test(Premamm..final. ~Sex, data=V1data)
+t.test(VTA..final. ~Sex, data=V1data)
+t.test(PAG..final. ~Sex, data=V1data)
+t.test(Mgen..final. ~Sex, data=V1data)
+t.test(Scol..final. ~Sex, data=V1data)
+t.test(BSTv..final. ~Sex, data=V1data)
+t.test(Ventral.CA3..final. ~Sex, data=V1data)
+```
+
+After comparing male and female densities in the measured regions, most regions showed no differences between sexes. The superior colliculus had higher densities of OTR in females compared to males (Female mean: `r round(scol.OT$estimate[1], digits= 2)`, Male mean `r round(scol.OT$estimate[2], digits = 2)`, t~(`r round(scol.OT$parameter, digits = 2)`)~ = `r round(scol.OT$statistic, digits = 2)`, p = `r round(scol.OT$p.value, digits = 2)`), however, this was no longer significant after corrections for multiple comparisons. 
+
+There was a significant effect of father condition (F(r aov2[[3]][1],r aov2[[4]][1]) = r aov2[[5]][1], p = r aov2[[6]][1]), a significant effect of postnatal day (F(r aov2[[3]][3],r aov2[[4]][3]) = r aov2[[5]][3], p = r aov2[[6]][3])
+
+```{r, echo=FALSE, results="hide"}
+# graphing ----------------------------------------------------------------
+
+# M <- cor(OTRPCAdata[,3:42], use="pairwise.complete.obs")
+# warnings()
+# corrplot(M, method="circle")
+# OTR.pca <- prcomp(M)
+# summary(OTR.pca)
+# OTRPCAdata$ID <- as.factor(OTRPCAdata$ID)
+# ggbiplot(OTR.pca, groups=OTRPCAdata$Sex, ellipse=T)
+
+OTRPCAdatalong <- gather(OTRPCAdata, condition, measurement,  OB..final.:Ventral.CA3..final., factor_key=T)
+#head(OTRPCAdatalong)
+
+
+# ggplot(OTRPCAdatalong, aes(x = Sex, y = measurement, group=condition, color=Sex, group=Sex)) +
+#   geom_violin() +
+#   facet_wrap(~ condition, ncol=4)
+# 
+```
+
+```{r, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
+ggviolin(OTRPCAdatalong, x = "Sex", y = "measurement", 
+         color="Sex", add="jitter") +
+  facet_wrap(~ condition, ncol=3, scales="free")
+
+
+ggboxplot(OTRPCAdatalong, x = "Sex", y = "measurement", 
+          color="Sex", add="jitter") +
+  facet_wrap(~ condition, ncol=3, scales="free")
+
+
+
+# M2 <- cor(V1PCAdata[,10:21])
+# corrplot(M2, method="circle")
+# V1R.pca <- prcomp(M2)
+# summary(V1R.pca)
+# ggbiplot(V1R.pca, ellipse=T,  groups=V1PCAdata$Sex)
+
+V1PCAdatalong <- gather(V1PCAdata, condition, measurement,  OB..final.:Ventral.CA3..final., factor_key=T)
+#head(V1PCAdatalong)
+
+ggviolin(V1PCAdatalong, x = "Sex", y = "measurement", 
+         color="Sex", add="jitter") +
+  facet_wrap(~ condition, ncol=5, scales="free")
+
+```
+
+
+
+
+```{r, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
+ggboxplot(V1PCAdatalong, x = "Sex", y = "measurement", 
+          color="Sex", add="jitter") +
+  facet_wrap(~ condition, ncol=5, scales="free")
+
+```
+
+
+
+```{r, echo=FALSE, results="hide"}
+
+# GGbiplot function -------------------------------------------------------
+
+
+ggbiplot <- function (pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE, 
+                      obs.scale = 1 - scale, var.scale = scale, groups = NULL, 
+                      ellipse = FALSE, ellipse.prob = 0.68, labels = NULL, shapes = NULL, labels.size = 3, 
+                      alpha = 1, var.axes = TRUE, circle = FALSE, circle.prob = 0.69, 
+                      varname.size = 3, varname.adjust = 1.5, varname.abbrev = FALSE, 
+                      ...) 
+{
+  library(ggplot2)
+  library(plyr)
+  library(scales)
+  library(grid)
+  library(extrafont)
+  stopifnot(length(choices) == 2)
+  if (inherits(pcobj, "prcomp")) {
+    nobs.factor <- sqrt(nrow(pcobj$x) - 1)
+    d <- pcobj$sdev
+    u <- sweep(pcobj$x, 2, 1/(d * nobs.factor), FUN = "*")
+    v <- pcobj$rotation
+  }
+  else if (inherits(pcobj, "princomp")) {
+    nobs.factor <- sqrt(pcobj$n.obs)
+    d <- pcobj$sdev
+    u <- sweep(pcobj$scores, 2, 1/(d * nobs.factor), FUN = "*")
+    v <- pcobj$loadings
+  }
+  else if (inherits(pcobj, "PCA")) {
+    nobs.factor <- sqrt(nrow(pcobj$call$X))
+    d <- unlist(sqrt(pcobj$eig)[1])
+    u <- sweep(pcobj$ind$coord, 2, 1/(d * nobs.factor), FUN = "*")
+    v <- sweep(pcobj$var$coord, 2, sqrt(pcobj$eig[1:ncol(pcobj$var$coord), 
+                                                  1]), FUN = "/")
+  }
+  else if (inherits(pcobj, "lda")) {
+    nobs.factor <- sqrt(pcobj$N)
+    d <- pcobj$svd
+    u <- predict(pcobj)$x/nobs.factor
+    v <- pcobj$scaling
+    d.total <- sum(d^2)
+  }
+  else {
+    stop("Expected a object of class prcomp, princomp, PCA, or lda")
+  }
+  choices <- pmin(choices, ncol(u))
+  df.u <- as.data.frame(sweep(u[, choices], 2, d[choices]^obs.scale, 
+                              FUN = "*"))
+  v <- sweep(v, 2, d^var.scale, FUN = "*")
+  df.v <- as.data.frame(v[, choices])
+  names(df.u) <- c("xvar", "yvar")
+  names(df.v) <- names(df.u)
+  if (pc.biplot) {
+    df.u <- df.u * nobs.factor
+  }
+  r <- sqrt(qchisq(circle.prob, df = 2)) * prod(colMeans(df.u^2))^(1/4)
+  v.scale <- rowSums(v^2)
+  df.v <- r * df.v/sqrt(max(v.scale))
+  if (obs.scale == 0) {
+    u.axis.labs <- paste("standardized PC", choices, sep = "")
+  }
+  else {
+    u.axis.labs <- paste("PC", choices, sep = "")
+  }
+  u.axis.labs <- paste(u.axis.labs, sprintf("(%0.1f%% explained var.)", 
+                                            100 * pcobj$sdev[choices]^2/sum(pcobj$sdev^2)))
+  if (!is.null(labels)) {
+    df.u$labels <- labels
+  }
+  if (!is.null(groups)) {
+    df.u$groups <- groups
+  }
+  if (!is.null(shapes)) {
+    df.u$shapes <- shapes
+  }
+  if (varname.abbrev) {
+    df.v$varname <- abbreviate(rownames(v))
+  }
+  else {
+    df.v$varname <- rownames(v)
+  }
+  df.v$angle <- with(df.v, (180/pi) * atan(yvar/xvar))
+  df.v$hjust = with(df.v, (1 - varname.adjust * sign(xvar))/2)
+  g <- ggplot(data = df.u, aes(x = xvar, y = yvar, family="Arial")) + xlab(u.axis.labs[1]) + 
+    ylab(u.axis.labs[2]) + coord_equal()
+  if (var.axes) {
+    if (circle) {
+      theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, 
+                                                length = 50))
+      circle <- data.frame(xvar = r * cos(theta), yvar = r * 
+                             sin(theta))
+      g <- g + geom_path(data = circle, color = muted("white"), 
+                         size = 1/2, alpha = 1/3)
+    }
+    g <- g + geom_segment(data = df.v, aes(x = 0, y = 0, 
+                                           xend = xvar, yend = yvar), arrow = arrow(length = unit(1/2, 
+                                                                                                  "picas")), color = "black")
+  }
+  if (!is.null(df.u$labels)) {
+    if (!is.null(df.u$groups)) {
+      g <- g + geom_text(aes(label = labels, color = groups), 
+                         size = labels.size, family="Arial", position=position_jitter(width=0.15, height=0.15)) #here
+    }
+    else {
+      g <- g + geom_text(aes(label = labels), size = labels.size, family="Arial", position=position_jitter(width=0.15, height=0.15))
+    }
+  }
+  else {
+    if (!is.null(df.u$groups)) {
+      if (!is.null(df.u$shapes)) {
+        df.u$shapes <- as.factor(df.u$shapes)
+        levels(df.u$shapes) <- rep(21:25, (length(df.u$shapes)))
+        g <- g +  geom_point(aes(color = "black", shape = as.integer(as.character(df.u$shapes)), fill=groups, size=3), alpha = alpha) +
+          scale_shape_identity() #aes(color = groups, shape = as.integer(as.character(df.u$shapes)), fill = groups, size=3)
+      }
+      else {
+        g <- g +  geom_point(aes(color = groups), alpha = alpha)
+      }
+    }
+    else {
+      g <- g + geom_point(alpha = alpha)
+    }
+  }
+  if (!is.null(df.u$groups) && ellipse) {
+    theta <- c(seq(-pi, pi, length = 50), seq(pi, -pi, length = 50))
+    circle <- cbind(cos(theta), sin(theta))
+    ell <- ddply(df.u, "groups", function(x) {
+      if (nrow(x) <= 2) {
+        return(NULL)
+      }
+      sigma <- var(cbind(x$xvar, x$yvar))
+      mu <- c(mean(x$xvar), mean(x$yvar))
+      ed <- sqrt(qchisq(ellipse.prob, df = 2))
+      data.frame(sweep(circle %*% chol(sigma) * ed, 2, 
+                       mu, FUN = "+"), groups = x$groups[1])
+    })
+    names(ell)[1:2] <- c("xvar", "yvar")
+    g <- g + geom_path(data = ell, aes(color = groups, group = groups))
+  }
+  if (var.axes) {
+    g <- g + geom_text(data = df.v, aes(label = varname, 
+                                        x = xvar, y = yvar, angle = angle, hjust = hjust, family="Arial"), 
+                       color = "black", size = varname.size)
+  }
+  return(g)
+}
+
+```
+
+
+>-Where did we see binding for OTR 
+
+>-Where did we see binding for V1aR 
+
+>-Sex differences 
+
+>-Predict with PCA 
+
+
+
+
+# Discussion 
+
+
+>-We found OTR in … V1aR in…. 
+
+>-Sex differences in densities/presence and absence 
+
+>-We found that overall patterns were similar to….. 
+
+>-Caveats 
+
+>>-Unknown age 
+
+>>-Unknown reproductive status 
+
+>>-Different experiences possible 
+
+>-What this means, similarities to other species 
+
+>-Relevance for behavior or life history 
+
+What still needs to be known? 
+
+
 
 ```{r}
 x <- c(1,6,8,12,10)
@@ -47,67 +511,6 @@ y <- c(4,5,6,7,8)
 plot(x,y)
 ```
 
-The Elsevier article class
-==========================
-
-#### Installation
-
-If the document class *elsarticle* is not available on your computer,
-you can download and install the system package *texlive-publishers*
-(Linux) or install the LaTeX package *elsarticle* using the package
-manager of your TeX installation, which is typically TeX Live or MikTeX.
-
-#### Usage
-
-Once the package is properly installed, you can use the document class
-*elsarticle* to create a manuscript. Please make sure that your
-manuscript follows the guidelines in the Guide for Authors of the
-relevant journal.[@davisAlarmCallingRichardson1984; @hareJuvenileRichardsonGround1998] It is not necessary to typeset your manuscript in
-exactly the same way as an article, unless you are submitting to a
-camera-ready copy (CRC) journal.
-
-#### Functionality
-
-The Elsevier article class is based on the standard article class and
-supports almost all of the functionality of that class. In addition, it
-features commands and options to format the
-
--   document style
-
--   baselineskip
-
--   front matter
-
--   keywords and MSC codes
-
--   theorems, definitions and proofs
-
--   lables of enumerations
-
--   citation style and labeling.
-
-Front matter
-============
-
-The author names and affiliations could be formatted in two ways:
-
-(1) Group the authors per affiliation.
-
-(2) Use footnotes to indicate the affiliations.
-
-See the front matter of this document for examples. You are recommended
-to conform your choice to the journal you are submitting to.
-
-Bibliography styles
-===================
-
-There are various bibliography styles available [@Austad1985]. You can select the
-style of your choice in the preamble of this document. These styles are
-Elsevier styles based on standard styles like Harvard and Vancouver.
-Please use BibTeX to generate your bibliography and include DOIs
-whenever available.
-
-Here are two sample references: @Feynman1963118 [@Dirac1953888].
 
 References {#references .unnumbered}
 ==========
