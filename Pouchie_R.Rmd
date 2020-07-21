@@ -130,22 +130,15 @@ OTR was measured in the olfactory bulb (OB), anterior olfactory nucleus (AON), p
 
 # Results 
 
-```{r, echo=FALSE, results="hide", message=FALSE}
+```{r load packages set functions, echo=FALSE, results="hide", message=FALSE}
 # load all necessary libraries ----
-library(ade4)
-library(ade4TkGUI)
-library(exactRankTests)
-library(ggplot2)
-library(ggthemes)
-library(lme4)
-library(lmerTest)
-library(emmeans)
-library(extrafont)
-library(car)
-library(corrplot)
-library(tidyverse)
-library(ggpubr)
+load_pkg <- rlang::quos(tidyverse, ade4, ade4TkGUI, exactRankTests, ggplot2, stargazer, ggthemes, lme4, lmerTest, emmeans, extrafont, car, corrplot, tidyverse, ggpubr, osfr, broom, vegan)
 
+invisible(lapply(lapply(load_pkg, rlang::quo_name),
+  library,
+  character.only = TRUE
+))
+#font_import() #if you haven't loaded and run extrafont package before
 
 #
 serr <- function(x) sqrt(var(x,na.rm=TRUE)/length(na.omit(x)))
@@ -159,8 +152,6 @@ theme_alex <- function(base_size=24, base_family ="Arial") {
           legend.position = "right")
   
 }
-
-
 
 summary(OTRdata)
 summary(V1data)
@@ -254,9 +245,8 @@ t.test(Ventral.CA3..final. ~Sex, data=V1data)
 
 After comparing male and female densities in the measured regions, most regions showed no differences between sexes. The superior colliculus had higher densities of OTR in females compared to males (Female mean: `r round(scol.OT$estimate[1], digits= 2)`, Male mean `r round(scol.OT$estimate[2], digits = 2)`, t~(`r round(scol.OT$parameter, digits = 2)`)~ = `r round(scol.OT$statistic, digits = 2)`, p = `r round(scol.OT$p.value, digits = 2)`), however, this was no longer significant after corrections for multiple comparisons. 
 
-There was a significant effect of father condition (F(r aov2[[3]][1],r aov2[[4]][1]) = r aov2[[5]][1], p = r aov2[[6]][1]), a significant effect of postnatal day (F(r aov2[[3]][3],r aov2[[4]][3]) = r aov2[[5]][3], p = r aov2[[6]][3])
 
-```{r, echo=FALSE, results="hide"}
+```{r pouchie ot data, echo=FALSE, results="hide"}
 # graphing ----------------------------------------------------------------
 
 # M <- cor(OTRPCAdata[,3:42], use="pairwise.complete.obs")
@@ -277,7 +267,7 @@ OTRPCAdatalong <- gather(OTRPCAdata, condition, measurement,  OB..final.:Ventral
 # 
 ```
 
-```{r, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
+```{r pouchie ot boxplot, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
 ggviolin(OTRPCAdatalong, x = "Sex", y = "measurement", 
          color="Sex", add="jitter") +
   facet_wrap(~ condition, ncol=3, scales="free")
@@ -307,7 +297,7 @@ ggviolin(V1PCAdatalong, x = "Sex", y = "measurement",
 
 
 
-```{r, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
+```{r pouchie v1 boxplot, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
 ggboxplot(V1PCAdatalong, x = "Sex", y = "measurement", 
           color="Sex", add="jitter") +
   facet_wrap(~ condition, ncol=5, scales="free")
@@ -316,7 +306,7 @@ ggboxplot(V1PCAdatalong, x = "Sex", y = "measurement",
 
 
 
-```{r, echo=FALSE, results="hide"}
+```{r ggbiplot function, echo=FALSE, results="hide"}
 
 # GGbiplot function -------------------------------------------------------
 
@@ -467,6 +457,216 @@ ggbiplot <- function (pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
 
 ```
 
+```{r OSF pull, echo=FALSE, include=FALSE}
+osf_retrieve_node("https://osf.io/bg6mq")%>%
+  osf_ls_files() %>%
+  osf_download(conflicts = "overwrite")
+
+
+v1MS <- read.csv(file="v1MS.csv")
+summary(v1MS) 
+
+## Create variables for V1a Comparison
+Species <- v1MS$X
+fullname <- v1MS$fullname
+Familyg <- v1MS$family
+mygenus <- v1MS$genus
+
+## Subset data points with relative binding, 
+## such that there are more species than regions 
+## (in order to not violate PCA assumptions)
+v1MSregions <- v1MS[,5:10]
+
+## Permutational MANOVA with family group (V1aR maximized species)
+adonis(v1MSregions ~ Familyg, data= v1MS, perm = 1000)
+
+## Permutational MANOVA with genus group (V1aR maximized species)
+adonis(v1MSregions ~ mygenus, data= v1MS, perm = 1000)
+
+## fit principle components of this subset
+fitv1MS <- princomp(v1MSregions, cor=T)
+loadings(fitv1MS)
+summary(fitv1MS)
+
+## Create color spectrum
+tol11qualitative=c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499")
+
+## create PCA figure V1aR maximized species
+figv1MS <- ggbiplot(fitv1MS, obs.scale = 1, var.scale = 1, 
+               ellipse = F, labels=fullname, groups=mygenus,
+               label.size = 5, varname.size = 2,
+               circle = F)
+figv1MS <- figv1MS  + scale_x_continuous(limits=c( -4, 4.5))
+figv1MS <- figv1MS + scale_y_continuous(limits=c(-2.5, 3))
+figv1MS <- figv1MS + scale_color_manual(values=(tol11qualitative)) + scale_fill_manual(values=(tol11qualitative))
+figv1MS <- figv1MS + theme_few()  + theme(legend.direction = 'horizontal', 
+                                legend.position = 'top', legend.title=element_blank())
+
+
+print(figv1MS)
+
+```
+
+```{r V1aR maximized regions, echo = FALSE, include=FALSE}
+# V1aR maximized regions --------------------------------------------------
+
+#V1ar part 2 - maximizing brain regions
+
+v1MR <- read.csv(file="v1MR.csv")
+summary(v1MR) 
+
+## Create variables for V1a Comparison
+SpeciesMR <- v1MR$X
+fullnameMR <- v1MR$fullname
+FamilyMR <- v1MR$family
+mygenusMR <- v1MR$genus
+
+## Subset data points with relative binding, such that there are more species than regions (in order to not violate test assumption)
+v1MRregions <- v1MR[,5:15]
+
+
+#permutational MANOVA V1aR family comparison max regions
+adonis(v1MRregions ~ FamilyMR, data= v1MR, perm = 1000)
+
+#permutational MANOVA V1aR family comparison max regions
+adonis(v1MRregions ~ mygenusMR, data= v1MR, perm = 1000)
+
+
+## fit principal components of this subset
+fitv1MR <- princomp(v1MRregions, cor=T)
+loadings(fitv1MR)
+
+# Select graph colors
+tol9qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499")
+
+```
+
+```{r echo=FALSE, fig.height=6, fig.width=8, include=FALSE, dpi=600}
+fig2 <- ggbiplot(fitv1MR, obs.scale = 1, var.scale = 1, 
+               ellipse = F, labels=fullnameMR, groups=mygenusMR,
+               label.size = 5, varname.size = 2,
+               circle = F) ## to see the brain regions
+fig2 <- fig2  + scale_x_continuous(limits=c(-4, 4.5))
+fig2 <- fig2 + scale_y_continuous(limits=c(-2.5, 3))
+fig2 <- fig2 + scale_color_manual(values=(tol9qualitative)) + scale_fill_manual(values=(tol9qualitative))
+fig2 <- fig2 + theme_few()  + theme(legend.direction = 'horizontal', 
+                                legend.position = 'top', legend.title=element_blank())
+print(fig2)
+
+## save a copy to folder
+ggsave("Figure v1ar max regions.png", width=8, height=6, dpi=600)
+
+
+```
+
+Does this look right?
+
+
+![a PCA](Figure v1ar max regions.png)
+
+```{r OTR maximized species, echo = FALSE, include=FALSE}
+
+# OTR ---------------------------------------------------------------------
+
+# OTR maximized species ---------------------------------------------------
+
+
+tol15rainbow=c("#114477", "#4477AA", "#77AADD", "#117755", "#44AA88", "#99CCBB", "#777711", "#AAAA44", "#DDDD77", "#771111", "#AA4444", "#DD7777", "#771144", "#AA4477", "#DD77AA")
+tol18rainbow=c("#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA", "#77CCCC", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788")
+
+
+
+otMS <- read.csv(file="otMS.csv")
+summary(otMS) 
+
+## save variables for OTR
+SpeciesotMS <- otMS$X
+fullnameotMS <- otMS$fullname
+FamilyotMS <- otMS$family
+genusotMS <- otMS$genus
+
+## again subset to have correct data type - no NAs, fewer vars than species
+otMSregions <- otMS[,5:11]
+
+#permutational MANOVA with family group as predictor
+adonis(otMSregions ~ FamilyotMS, data= otMS, perm = 1000)
+
+#permutational MANOVA with genus group as predictor
+adonis(otMSregions ~ genusotMS, data= otMS, perm = 1000)
+
+#Fit a pca
+fitotMS <- princomp(otMSregions, cor=T)
+summary(fitotMS)
+loadings(fitotMS)
+
+#set colors
+tol14rainbow=c("#882E72", "#B178A6", "#D6C1DE", "#1965B0", "#5289C7", "#7BAFDE", "#4EB265", "#90C987", "#CAE0AB", "#F7EE55", "#F6C141", "#F1932D", "#E8601C", "#DC050C")
+
+
+figotMS <- ggbiplot(fitotMS, obs.scale = 1, var.scale = 1, 
+              ellipse = F, group=genusotMS, labels=fullnameotMS,
+              label.size = 5, varname.size = 2,
+              circle = F)
+figotMS <- figotMS  + scale_y_continuous(limits=c(-3, 3))
+figotMS <- figotMS + scale_x_continuous(limits=c(-5, 5))
+figotMS <- figotMS + scale_color_manual(values=tol14rainbow) + scale_fill_manual(values=tol14rainbow)
+figotMS <- figotMS + theme_few() + theme(legend.direction = 'horizontal', 
+                             legend.position = 'top', legend.title=element_blank())
+print(figotMS)
+
+##save to computer
+#ggsave("FIGURE otr max species.png", width=8, height=6, dpi=600)
+
+```
+
+```{r OTR maximized regions, echo = FALSE, include=FALSE}
+# OTR maximized regions ---------------------------------------------------
+
+#OTR part 2 - maximizing brain regions
+
+
+otMR <- read.csv(file="otMR.csv")
+summary(otMR) 
+
+## save variables for OTR
+SpeciesotMR <- otMR$X
+fullnameotMR <- otMR$fullname
+FamilyotMR <- otMR$family
+genusotMR <- otMR$genus
+
+## again subset to have correct data type - no NAs, fewer vars than species
+otMRregions <- otMR[,5:15]
+
+# permutational MANOVA with family predictor
+adonis(otMRregions ~ FamilyotMR, data= otMR, perm = 1000)
+
+# permutational MANOVA with genus predictor
+adonis(otMRregions ~ genusotMR, data= otMR, perm = 1000)
+
+
+#Fit a pca
+fitotMR <- princomp(otMRregions, cor=T)
+summary(fitotMR)
+loadings(fitotMR)
+
+#Create an OTR graph
+
+fig4 <- ggbiplot(fitotMR, obs.scale = 1, var.scale = 1, 
+              ellipse = F, group=genusotMR, labels=fullnameotMR,
+              label.size = 5, varname.size = 2,
+              circle = F)
+fig4  <- fig4   + scale_y_continuous(limits=c(-4, 4))
+fig4  <- fig4  + scale_x_continuous(limits=c(-6, 6))
+fig4  <- fig4  + scale_color_manual(values=tol11qualitative) + scale_fill_manual(values=tol11qualitative)
+fig4  <- fig4  + theme_few() + theme(legend.direction = 'horizontal', 
+                             legend.position = 'top', legend.title=element_blank()) 
+print(fig4)
+
+##save to computer
+#ggsave("Figure 2 OTR max regions.png", width=8, height=6, dpi=600)
+
+```
+
 
 >-Where did we see binding for OTR 
 
@@ -501,15 +701,6 @@ ggbiplot <- function (pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
 >-Relevance for behavior or life history 
 
 What still needs to be known? 
-
-
-
-```{r}
-x <- c(1,6,8,12,10)
-y <- c(4,5,6,7,8)
-
-plot(x,y)
-```
 
 
 References {#references .unnumbered}
