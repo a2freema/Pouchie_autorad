@@ -31,6 +31,9 @@ bibliography: library.bib
 linenumbers: true
 #numbersections: true
 csl: elsevier-harvard.csl
+geometry: margin=2cm
+header-includes:
+  - \usepackage{setspace}\doublespacing
 output: rticles::elsevier_article
 editor_options: 
   chunk_output_type: console
@@ -132,7 +135,7 @@ OTR was measured in the olfactory bulb (OB), anterior olfactory nucleus (AON), p
 
 ```{r load packages set functions, echo=FALSE, results="hide", message=FALSE}
 # load all necessary libraries ----
-load_pkg <- rlang::quos(tidyverse, ade4, ade4TkGUI, exactRankTests, ggplot2, stargazer, ggthemes, lme4, lmerTest, emmeans, extrafont, car, corrplot, tidyverse, ggpubr, osfr, broom, vegan)
+load_pkg <- rlang::quos(tidyverse, ade4, ade4TkGUI, exactRankTests, ggplot2, stargazer, ggthemes, lme4, lmerTest, emmeans, extrafont, car, corrplot, tidyverse, dplyr, ggpubr, osfr, broom, vegan)
 
 invisible(lapply(lapply(load_pkg, rlang::quo_name),
   library,
@@ -243,7 +246,9 @@ t.test(BSTv..final. ~Sex, data=V1data)
 t.test(Ventral.CA3..final. ~Sex, data=V1data)
 ```
 
-After comparing male and female densities in the measured regions, most regions showed no differences between sexes. The superior colliculus had higher densities of OTR in females compared to males (Female mean: `r round(scol.OT$estimate[1], digits= 2)`, Male mean `r round(scol.OT$estimate[2], digits = 2)`, t~(`r round(scol.OT$parameter, digits = 2)`)~ = `r round(scol.OT$statistic, digits = 2)`, p = `r round(scol.OT$p.value, digits = 2)`), however, this was no longer significant after corrections for multiple comparisons. 
+After comparing male and female densities in the measured regions, most regions showed no differences between sexes. The superior colliculus had higher densities of OTR in females compared to males (Female mean: `r round(scol.OT$estimate[1], digits= 2)`, Male mean `r round(scol.OT$estimate[2], digits = 2)`, t~(`r round(scol.OT$parameter, digits = 2)`)~ = `r round(scol.OT$statistic, digits = 2)`, p = `r round(scol.OT$p.value, digits = 2)`), however, this was no longer significant after corrections for multiple comparisons.
+
+
 
 
 ```{r pouchie ot data, echo=FALSE, results="hide"}
@@ -257,7 +262,7 @@ After comparing male and female densities in the measured regions, most regions 
 # OTRPCAdata$ID <- as.factor(OTRPCAdata$ID)
 # ggbiplot(OTR.pca, groups=OTRPCAdata$Sex, ellipse=T)
 
-OTRPCAdatalong <- gather(OTRPCAdata, condition, measurement,  OB..final.:Ventral.CA3..final., factor_key=T)
+OTRPCAdatalong <- gather(OTRPCAdata, condition, measurement,  Olfactory.Bulb:Ventral.CA3, factor_key=T)
 #head(OTRPCAdatalong)
 
 
@@ -267,7 +272,35 @@ OTRPCAdatalong <- gather(OTRPCAdata, condition, measurement,  OB..final.:Ventral
 # 
 ```
 
-```{r pouchie ot boxplot, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
+\newpage
+```{r OTR table, echo=FALSE, message=FALSE}
+sum_OTdata <- OTRPCAdatalong %>% drop_na() %>%
+    group_by(condition, Sex) %>%
+    dplyr::summarize(density_mean = round(mean(measurement), digits = 2),
+              density_serr = round(serr(measurement), digits = 2),
+              n_datapoints =n()) %>%
+  ungroup()
+
+sum_OTdata$condition <- gsub("[.]", " ", sum_OTdata$condition) 
+kable_OTcol2 <- paste(sum_OTdata$density_mean, "±", sum_OTdata$density_serr)
+
+sum_OTdata2 <- sum_OTdata %>% select(-one_of("density_serr"), -one_of("density_mean"))  %>% add_column(kable_OTcol2, .before= "n_datapoints") %>% filter(condition !="Dentate Gyrus" & condition !="Medial Geniculate" & condition !="Ventral CA3")
+                        
+large_colnames <- c("Region", "Sex", "Density mean ± SE (dpm/mg)", "N")
+knitr::kable(sum_OTdata2, col.names = large_colnames, align='llrr', caption="OTR densities by region and sex")
+```
+\newpage
+
+```{r OTR relative table, echo=FALSE}
+OTRcategory <- data.frame("Region" = c("Olfactory Bulb", "Nucleus Accumbens", "mPFC", "Ventral Pallidum", "Lateral Septum", "BST", "CeA", "MeA", "Hippocampus", "VMH", "VTA"), "Relative Binding" = c("+", "+", "+", "-", "+", "++", "++", "+", "+", "+++", "++"))
+
+knitr::kable(OTRcategory, align='lc', caption="OTR relative densities in select regions")
+
+```
+
+
+
+```{r pouchie ot boxplot, echo=FALSE, include=FALSE, fig.width= 4, fig.height=7}
 ggviolin(OTRPCAdatalong, x = "Sex", y = "measurement", 
          color="Sex", add="jitter") +
   facet_wrap(~ condition, ncol=3, scales="free")
@@ -285,7 +318,7 @@ ggboxplot(OTRPCAdatalong, x = "Sex", y = "measurement",
 # summary(V1R.pca)
 # ggbiplot(V1R.pca, ellipse=T,  groups=V1PCAdata$Sex)
 
-V1PCAdatalong <- gather(V1PCAdata, condition, measurement,  OB..final.:Ventral.CA3..final., factor_key=T)
+V1PCAdatalong <- gather(V1PCAdata, condition, measurement, Olfactory.Bulb:Ventral.CA3, factor_key=T)
 #head(V1PCAdatalong)
 
 ggviolin(V1PCAdatalong, x = "Sex", y = "measurement", 
@@ -294,10 +327,35 @@ ggviolin(V1PCAdatalong, x = "Sex", y = "measurement",
 
 ```
 
+\newpage
+```{r V1aR table, echo=FALSE, message=FALSE}
+sum_data <- V1PCAdatalong %>% drop_na() %>%
+    group_by(condition, Sex) %>%
+    dplyr::summarize(density_mean = round(mean(measurement), digits = 2),
+              density_serr = round(serr(measurement), digits = 2),
+              n_datapoints =n()) %>%
+  ungroup()
+
+sum_data$condition <- gsub("[.]", " ", sum_data$condition) 
+kable_col2 <- paste(sum_data$density_mean, "±", sum_data$density_serr)
+
+sum_data2 <- sum_data %>% select(-one_of("density_serr"), -one_of("density_mean"))  %>% add_column(kable_col2, .before= "n_datapoints") %>% filter(condition !="CA1" & condition !="CA3")
+                        
+large_colnames <- c("Region", "Sex", "Density mean ± SE (dpm/mg)", "N")
+knitr::kable(sum_data2, col.names = large_colnames, align='llrr', caption="V1aR densities by region and sex")
+```
+\newpage
 
 
+```{r v1aR relative table, echo=FALSE}
+V1rcategory <- data.frame("Region" = c("Olfactory Bulb", "Nucleus Accumbens", "mPFC", "Ventral Pallidum", "Lateral Septum", "BST", "CeA", "MeA", "PVN", "Hippocampus", "Dentate Gyrus", "Premammillary Nucleus", "VMH", "VTA"), "Relative Binding" = c("++", "++", "+", "+", "+++", "++", "++", "+", "+", "-", "+", "++", "+", "+"))
 
-```{r pouchie v1 boxplot, echo=FALSE, warning=FALSE, fig.width= 4, fig.height=7}
+knitr::kable(V1rcategory, align='lc', caption="V1aR relative densities in select regions")
+
+```
+
+
+```{r pouchie v1 boxplot, echo=FALSE, include=FALSE, fig.width= 4, fig.height=7}
 ggboxplot(V1PCAdatalong, x = "Sex", y = "measurement", 
           color="Sex", add="jitter") +
   facet_wrap(~ condition, ncol=5, scales="free")
@@ -309,13 +367,14 @@ ggboxplot(V1PCAdatalong, x = "Sex", y = "measurement",
 ```{r ggbiplot function, echo=FALSE, results="hide"}
 
 # GGbiplot function -------------------------------------------------------
-
+#This function edited to make vector labels parallel and black.
+#also new is option to flip x axis, which will nudge the vector labels too
 
 ggbiplot <- function (pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE, 
                       obs.scale = 1 - scale, var.scale = scale, groups = NULL, 
                       ellipse = FALSE, ellipse.prob = 0.68, labels = NULL, shapes = NULL, labels.size = 3, 
                       alpha = 1, var.axes = TRUE, circle = FALSE, circle.prob = 0.69, 
-                      varname.size = 3, varname.adjust = 1.5, varname.abbrev = FALSE, 
+                      varname.size = 3, varname.adjust = 1.5, varname.abbrev = FALSE, flip.x = FALSE, flip.y =                        FALSE,
                       ...) 
 {
   library(ggplot2)
@@ -447,11 +506,27 @@ ggbiplot <- function (pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
     names(ell)[1:2] <- c("xvar", "yvar")
     g <- g + geom_path(data = ell, aes(color = groups, group = groups))
   }
+
   if (var.axes) {
+      if (flip.x==T | flip.y ==T) {
+        g <- g + geom_text(data = df.v, aes(label = varname, 
+                                        x = xvar, y = yvar, hjust = hjust, family="Arial"), 
+                       color = "black", size = varname.size, nudge_x = .05, nudge_y=.13)
+      } #let's see? had the else here.
+     else
     g <- g + geom_text(data = df.v, aes(label = varname, 
-                                        x = xvar, y = yvar, angle = angle, hjust = hjust, family="Arial"), 
+                                        x = xvar, y = yvar, hjust = hjust, family="Arial"), 
                        color = "black", size = varname.size)
+    #    g <- g + geom_text(data = df.v, aes(label = varname, 
+            #  x = xvar, y = yvar, angle = angle, hjust = hjust, family="Arial"), 
+             # color = "black", size = varname.size)
   }
+  if (flip.x==T) {
+    g <- g + scale_x_reverse()
+  }  
+  if (flip.y==T) {
+    g <- g + scale_y_reverse()
+  }  
   return(g)
 }
 
@@ -484,28 +559,71 @@ adonis(v1MSregions ~ Familyg, data= v1MS, perm = 1000)
 adonis(v1MSregions ~ mygenus, data= v1MS, perm = 1000)
 
 ## fit principle components of this subset
-fitv1MS <- princomp(v1MSregions, cor=T)
-loadings(fitv1MS)
-summary(fitv1MS)
+#fitv1MS <- princomp(v1MSregions, cor=T)
+#loadings(fitv1MS)
+#summary(fitv1MS)
+
+#####Adding new datapoint
+
+fitv1MS_NEW <- prcomp(v1MSregions, scale=TRUE, retx=TRUE)
+fitv1MS_NEW$x
+summary(fitv1MS_NEW)
+#this function is identical to princomp
+
+
+# project new data onto the PCA space
+pouchiev1 <- data.frame("VPal" = 1, "LS" = 3, "BNST" = 2, "CeA" = 2, "MeA" = 1, "DG" = 1)
+pouchie_v1MSpoint <- scale(pouchiev1, fitv1MS_NEW$center, fitv1MS_NEW$scale) %*% fitv1MS_NEW$rotation 
+
+
+
+#############
+
+
 
 ## Create color spectrum
 tol11qualitative=c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499")
+tol12qualitative=c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#AA4466", "#882255", "#AA4499")
+ 
+#pal(tol7qualitative)
 
+
+```
+
+```{r V1aR maximized species, echo = FALSE, include=FALSE}
 ## create PCA figure V1aR maximized species
-figv1MS <- ggbiplot(fitv1MS, obs.scale = 1, var.scale = 1, 
+figv1MS <- ggbiplot(fitv1MS_NEW, obs.scale = 1, var.scale = 1, 
                ellipse = F, labels=fullname, groups=mygenus,
-               label.size = 5, varname.size = 2,
-               circle = F)
-figv1MS <- figv1MS  + scale_x_continuous(limits=c( -4, 4.5))
+               label.size = 6, varname.size = 4,
+               circle = F, flip.x = T)
+
+#add pouchie data onto the plot dataframe
+figv1MS$data <- rbind(figv1MS$data, 
+  data.frame(
+    xvar = pouchie_v1MSpoint[, "PC1"],
+    yvar = pouchie_v1MSpoint[, "PC2"],
+    labels = "Cricetomys ansorgei",
+    groups = "Cricetomys"
+  )
+)
+
 figv1MS <- figv1MS + scale_y_continuous(limits=c(-2.5, 3))
-figv1MS <- figv1MS + scale_color_manual(values=(tol11qualitative)) + scale_fill_manual(values=(tol11qualitative))
+figv1MS <- figv1MS + scale_color_manual(values=(tol12qualitative)) +  scale_fill_manual(values=(tol12qualitative)) #had to alter color scheme to accommodate new point
 figv1MS <- figv1MS + theme_few()  + theme(legend.direction = 'horizontal', 
                                 legend.position = 'top', legend.title=element_blank())
 
+figv1MS <- figv1MS+ scale_x_reverse(limits=c( 3.5, -3)) #if Flip.x is T, need to specify a reversed x scale.
 
 print(figv1MS)
-
+ggsave("Figure v1ar max species.png", width=8, height=6, dpi=600)
 ```
+
+
+
+
+
+
+![a PCA, V1aR with species maximized](Figure v1ar max species.png)
 
 ```{r V1aR maximized regions, echo = FALSE, include=FALSE}
 # V1aR maximized regions --------------------------------------------------
@@ -533,22 +651,49 @@ adonis(v1MRregions ~ mygenusMR, data= v1MR, perm = 1000)
 
 
 ## fit principal components of this subset
-fitv1MR <- princomp(v1MRregions, cor=T)
-loadings(fitv1MR)
+#fitv1MR <- princomp(v1MRregions, cor=T)
+#loadings(fitv1MR)
+
+#####Adding new datapoint
+
+fitv1MR_NEW <- prcomp(v1MRregions, scale=TRUE, retx=TRUE)
+fitv1MR_NEW$x
+summary(fitv1MR_NEW)
+#this function is identical to princomp
+
+
+# project new data onto the PCA space
+pouchiev1MR <- data.frame("OB" = 2, "VPal" = 1, "LS" = 3, "BNST" = 2, "CeA" = 2, "MeA" = 1, "BLA" = 1, "CA1" = 0, "CA3" = 0, "DG" = 1, "SCOL" = 1)
+pouchie_v1MRpoint <- scale(pouchiev1MR, fitv1MR_NEW$center, fitv1MR_NEW$scale) %*% fitv1MR_NEW$rotation 
+
+
+
 
 # Select graph colors
 tol9qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499")
-
+tol10qualitative=c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933",
+                     "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499")
 ```
 
 ```{r echo=FALSE, fig.height=6, fig.width=8, include=FALSE, dpi=600}
-fig2 <- ggbiplot(fitv1MR, obs.scale = 1, var.scale = 1, 
+fig2 <- ggbiplot(fitv1MR_NEW, obs.scale = 1, var.scale = 1, 
                ellipse = F, labels=fullnameMR, groups=mygenusMR,
-               label.size = 5, varname.size = 2,
-               circle = F) ## to see the brain regions
-fig2 <- fig2  + scale_x_continuous(limits=c(-4, 4.5))
-fig2 <- fig2 + scale_y_continuous(limits=c(-2.5, 3))
-fig2 <- fig2 + scale_color_manual(values=(tol9qualitative)) + scale_fill_manual(values=(tol9qualitative))
+               label.size = 6, varname.size = 4,
+               circle = F, flip.x=T, flip.y = T) ## to see the brain regions
+
+#add pouchie data onto the plot dataframe
+fig2$data <- rbind(fig2$data, 
+  data.frame(
+    xvar = pouchie_v1MRpoint[, "PC1"],
+    yvar = pouchie_v1MRpoint[, "PC2"],
+    labels = "Cricetomys ansorgei",
+    groups = "Cricetomys"
+  )
+)
+
+fig2 <- fig2  +  scale_x_reverse(limits=c( 4.5, -4)) # because flipx is T, must reverse scale.
+fig2 <- fig2 + scale_y_reverse(limits=c(3, -3))
+fig2 <- fig2 + scale_color_manual(values=(tol10qualitative)) + scale_fill_manual(values=(tol10qualitative))
 fig2 <- fig2 + theme_few()  + theme(legend.direction = 'horizontal', 
                                 legend.position = 'top', legend.title=element_blank())
 print(fig2)
@@ -559,10 +704,9 @@ ggsave("Figure v1ar max regions.png", width=8, height=6, dpi=600)
 
 ```
 
-Does this look right?
 
 
-![a PCA](Figure v1ar max regions.png)
+![a PCA, V1aR with regions maximized](Figure v1ar max regions.png)
 
 ```{r OTR maximized species, echo = FALSE, include=FALSE}
 
