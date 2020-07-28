@@ -269,7 +269,7 @@ knitr::kable(OTRcategory, align='lc', caption="OTR relative densities in select 
 
 ```
 
-![OTR in the forebrain of the pouched rat](Images/OT1.png)
+![OTR in the forebrain of the pouched rat. Images on left are Nissl stain, associated autoradiograms on right show OTR density. MOB = Main olfactory bulb, mPFC = medial prefrontal cortex. ](Images/OT1.png)
 
 
 
