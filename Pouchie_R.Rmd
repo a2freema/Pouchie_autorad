@@ -258,7 +258,7 @@ knitr::kable(sum_OTdata2, col.names = large_colnames, align='llrr', caption="OTR
 ```
 \newpage
 
-Pouched rats had very dense binding in the VMH, with moderate binding in the BST, CeA and VTA. There was only a low level of binding in the OB and mPFC (Table 2, Figure 1).
+Pouched rats had very dense OTR binding in the VMH, with moderate binding in the BNST, CeA and VTA. There was only a low level of binding in the OB and mPFC (Table 2, Figure 1). Extremely low levels of OTR binding were observed in NAcc, LS, PVN, and thalamus (Figures 2-4).
 
 ```{r OTR relative table, echo=FALSE}
 OTRcategory <- data.frame("Region" = c("Olfactory Bulb", "Nucleus Accumbens", "mPFC", "Ventral Pallidum", "Lateral Septum", "BST", "CeA", "MeA", "Hippocampus", "VMH", "VTA"), "Relative Binding" = c("+", "+", "+", "-", "+", "++", "++", "+", "+", "+++", "++"))
@@ -301,6 +301,10 @@ knitr::kable(sum_data2, col.names = large_colnames, align='llrr', caption="V1aR 
 ```
 \newpage
 
+After comparing male and female densities of V1aR in the measured regions, we detected no significant differences between sexes (Table 3).
+
+Pouched rats had relatively very dense V1aR binding in the LS (Figure 6), and moderately dense levels of V1aR binding in the Olfactory Bulbs, BST, NAcc, Amygdalar and Hypothalamic Nuclei (Figures 5-10). Binding in the Hippocampus was generally absent except for some moderate V1aR binding in the most ventral regions (Figure 10).
+
 ![V1aR in the forebrain of the pouched rat. Images on left are Nissl stain, associated autoradiograms on right show V1aR density. MOB, gl = Main olfactory bulb, glomerular layer, mPFC = medial prefrontal cortex.](Images/V1aR1.png)   
 
 
@@ -316,7 +320,8 @@ knitr::kable(sum_data2, col.names = large_colnames, align='llrr', caption="V1aR 
 
 \newpage
 
-![V1aR in the forebrain of the pouched rat. Image on left are Nissl stain, associated autoradiogram on right shows V1aR density. DG = Dentate Gyrus, CA3 = CA3 Region of the Hippocampus, BLA = Basolateral Amygdala, PH = Posterior Hypothalamus, VMH = Ventromedial Hypothalamic Nucleus.](Images/V1aR4.png)
+![V1aR in the forebrain of the pouched rat. Image on left are Nissl stain, associated autoradiogram on right shows V1aR density. DG = Dentate Gyrus, CA3 = CA3 Region of the Hippocampus, BLA = Basolateral Amygdala, PH = Posterior Hypothalamus, PreMamm = Premammillary Nucleus.](Images/V1aR4.png)
+
 
 \newpage
 
@@ -625,7 +630,9 @@ print(figv1MS)
 ggsave("Figure v1ar max species.png", width=8, height=6, dpi=600)
 ```
 
+Comparing the overall patterns of binding of OTR to other rodents, the pouched rat was most similar in OTR binding to Microtus voles due to low binding in the hippocampus, but relatively high binding in the VMH. When the number of species included in the analysis was maximized, the pouched rat was placed relatively centrally in the plot, and clustered with a number of other rodents, suggesting that the overall patterns of OTR binding in the pouched rat brain in these regions were very similar to a most other studied rodents.
 
+The multivariate comparison of V1aR binding, with number of species maximized, showed that the pouched rat was placed relatively close to the hamsters (Phodopus sungorus, Meriones shawi and Meriones unguiculatus). However, when the number of regions included was increased, the pouched rat became more distant from these hamsters, indicating that binding patterns in these new regions (the Hippocampal regions and Basolateral amygdala) were very different between hamsters and the pouched rat. In this analysis with the largest number of regions included, the pouched rat is placed between the peromyscus mice and the microtus voles.
 
 
 
@@ -730,7 +737,7 @@ fig2$data <- rbind(fig2$data,
 )
 
 
-fig2 <- fig2  +  scale_x_continuous(limits=c(-4.5, 4)) # because flipx is T, must reverse scale.
+fig2 <- fig2  +  scale_x_continuous(limits=c(-5, 5)) # because flipx is T, must reverse scale.
 fig2 <- fig2 + scale_y_continuous(limits=c(-3, 3))
 fig2 <- fig2 + scale_color_manual(values=(tol10qualitative)) + scale_fill_manual(values=(tol10qualitative))
 fig2 <- fig2 + theme_few()  + theme(legend.direction = 'horizontal', 
@@ -915,14 +922,6 @@ ggsave("Figure 2 OTR max regions.png", width=8, height=6, dpi=600)
 
 ![a PCA, OTR with regions maximized](Figure 2 OTR max regions.png)
 
-
->-Where did we see binding for OTR 
-
->-Where did we see binding for V1aR 
-
->-Sex differences 
-
->-Predict with PCA 
 
 \newpage
 
