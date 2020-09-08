@@ -104,7 +104,7 @@ We mapped pouched rat relative binding data onto this plot based on this framewo
 
 ```{r load packages set functions, echo=FALSE, results="hide", message=FALSE}
 # load all necessary libraries ----
-load_pkg <- rlang::quos(tidyverse, ade4, ade4TkGUI, exactRankTests, ggplot2, stargazer, ggthemes, lme4, lmerTest, emmeans, extrafont, car, corrplot, tidyverse, dplyr, ggpubr, osfr, broom, vegan)
+load_pkg <- rlang::quos(tidyverse, ade4, ade4TkGUI, exactRankTests, ggplot2, stargazer, ggthemes, lme4, lmerTest, emmeans, extrafont, car, corrplot, tidyverse, dplyr, ggpubr, osfr, broom, Unicode, vegan)
 
 invisible(lapply(lapply(load_pkg, rlang::quo_name),
   library,
@@ -553,11 +553,13 @@ pouchie_MSregions <- pouchie_adonisdata[, 5:10]
 Familypg <- pouchie_adonisdata$family
 mypgenus <- pouchie_adonisdata$genus
 
+```
+
+```{r Adonis functions, echo=FALSE, include = FALSE}
 ##pouchie included adonis.
 glimpse(pouchie_adonisdata)
-adonis(pouchie_MSregions ~ Familypg, data= pouchie_adonisdata, perm = 1000)
-adonis(pouchie_MSregions ~ mypgenus, data= pouchie_adonisdata, perm = 1000)
-
+Fam1 <- adonis(pouchie_MSregions ~ Familypg, data= pouchie_adonisdata, perm = 1000)
+Gen1 <- adonis(pouchie_MSregions ~ mypgenus, data= pouchie_adonisdata, perm = 1000)
 
 
 ## Permutational MANOVA with family group (V1aR maximized species)
@@ -566,6 +568,25 @@ adonis(v1MSregions ~ Familyg, data= v1MS, perm = 1000)
 
 ## Permutational MANOVA with genus group (V1aR maximized species)
 adonis(v1MSregions ~ mygenus, data= v1MS, perm = 1000)
+
+u_char_inspect(0xB2)
+```
+
+
+```{r Adonis tables V1aR, echo=FALSE}
+
+knitr::kable(Fam1$aov.tab, align='lc', caption="V1aR Maximized species Permutational Manova by family", col.names = c( "Df", "SS", "MS", "F", "R²", "p"))
+
+
+knitr::kable(Gen1$aov.tab, align='lc', caption="V1aR Maximized species Permutational Manova by genus", col.names = c( "Df", "SS", "MS", "F", "R²", "p"))
+```
+
+
+
+
+
+```{r V1aR maximized species, echo = FALSE, include=FALSE}
+
 
 ## fit principle components of this subset
 #fitv1MS <- princomp(v1MSregions, cor=T)
@@ -598,10 +619,6 @@ tol12qualitative=c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#9999
  
 #pal(tol7qualitative)
 
-
-```
-
-```{r V1aR maximized species, echo = FALSE, include=FALSE}
 ## create PCA figure V1aR maximized species
 figv1MS <- ggbiplot(fitv1MS_NEW, obs.scale = 1, var.scale = 1, 
                ellipse = F, labels=fullname, groups=mygenus,
@@ -630,11 +647,178 @@ print(figv1MS)
 ggsave("Figure v1ar max species.png", width=8, height=6, dpi=600)
 ```
 
-Comparing the overall patterns of binding of OTR to other rodents, the pouched rat was most similar in OTR binding to Microtus voles due to low binding in the hippocampus, but relatively high binding in the VMH. When the number of species included in the analysis was maximized, the pouched rat was placed relatively centrally in the plot, and clustered with a number of other rodents, suggesting that the overall patterns of OTR binding in the pouched rat brain in these regions were very similar to a most other studied rodents.
+Comparing the overall patterns of binding of OTR to other rodents, the pouched rat was most similar in OTR binding to Microtus voles due to low binding in the hippocampus, but relatively high binding in the VMH (Figure 11). In these PCA biplots, the relative location of a species represents its pattern of binding in the regions identified at the end of the vectors. Therefore, species with similar receptor binding patterns will be positioned close together in the plot. The direction of these brain region vectors (i.e. arrows) indicates relative loading on PC1 and PC2, and the length of the vector indicates the weight associated with the two principal components. Therefore, a species placed near the end of a vector typically indicates relatively dense binding in that region compared to other regions in the plot. 
 
-The multivariate comparison of V1aR binding, with number of species maximized, showed that the pouched rat was placed relatively close to the hamsters (Phodopus sungorus, Meriones shawi and Meriones unguiculatus). However, when the number of regions included was increased, the pouched rat became more distant from these hamsters, indicating that binding patterns in these new regions (the Hippocampal regions and Basolateral amygdala) were very different between hamsters and the pouched rat. In this analysis with the largest number of regions included, the pouched rat is placed between the peromyscus mice and the microtus voles.
+When the number of species included in the analysis was maximized, the pouched rat was placed relatively centrally in the plot, and clustered with a number of other rodents, suggesting that the overall patterns of OTR binding in the pouched rat brain in these regions were very similar to a most other studied rodents (Figure 12).
+
+The multivariate comparison of V1aR binding, with the number of species included maximized, showed that the pouched rat was placed relatively close to the hamsters (_Phodopus sungorus_, _Meriones shawi_ and _Meriones unguiculatus_). However, when the number of regions included was increased, the pouched rat became more distant from these hamsters, indicating that binding patterns in these newly included regions (the Hippocampal regions and Basolateral amygdala) were different between hamsters and the pouched rat and resulted in additional variance. In this analysis, with the number of regions included maximized, the pouched rat is placed between the peromyscus mice and the microtus voles in the plot.
+
+```{r OTR maximized species, echo = FALSE, include=FALSE}
+
+# OTR ---------------------------------------------------------------------
+
+# OTR maximized species ---------------------------------------------------
 
 
+tol15rainbow=c("#114477", "#4477AA", "#77AADD", "#117755", "#44AA88", "#99CCBB", "#777711", "#AAAA44", "#DDDD77", "#771111", "#AA4444", "#DD7777", "#771144", "#AA4477", "#DD77AA")
+tol18rainbow=c("#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA", "#77CCCC", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788")
+
+
+
+otMS <- read.csv(file="otMS.csv")
+summary(otMS) 
+
+## save variables for OTR
+SpeciesotMS <- otMS$X
+fullnameotMS <- otMS$fullname
+FamilyotMS <- otMS$family
+genusotMS <- otMS$genus
+
+## again subset to have correct data type - no NAs, fewer vars than species
+otMSregions <- otMS[,5:11]
+
+#permutational MANOVA with family group as predictor
+adonis(otMSregions ~ FamilyotMS, data= otMS, perm = 1000)
+
+#permutational MANOVA with genus group as predictor
+adonis(otMSregions ~ genusotMS, data= otMS, perm = 1000)
+
+#Fit a pca
+#fitotMS <- princomp(otMSregions, cor=T)
+#summary(fitotMS)
+#loadings(fitotMS)
+
+#####Adding new datapoint
+
+fitotMS_NEW <- prcomp(otMSregions, scale=TRUE, retx=TRUE)
+fitotMS_NEW$x
+summary(fitotMS_NEW)
+#this function is identical to princomp
+
+
+# project new data onto the PCA space
+pouchieotMS <- data.frame("LS" = 1, "BNST" = 2, "CeA" = 2, "MeA" = 1, "CA1" = 1, "CA3" = 1, "DG" = 0)
+pouchie_otMSpoint <- scale(pouchieotMS, fitotMS_NEW$center, fitotMS_NEW$scale) %*% fitotMS_NEW$rotation 
+
+
+
+#set colors
+tol14rainbow=c("#882E72", "#B178A6", "#D6C1DE", "#1965B0", "#5289C7", "#7BAFDE", "#4EB265", "#90C987", "#CAE0AB", "#F7EE55", "#F6C141", "#F1932D", "#E8601C", "#DC050C")
+tol15rainbow=c("#114477", "#4477AA", "#77AADD", "#117755", "#44AA88", "#99CCBB", "#777711", "#AAAA44", "#DDDD77", "#771111", "#AA4444", "#DD7777", "#771144", "#AA4477", "#DD77AA")
+
+```
+
+```{r OTR maximized species plot, echo = FALSE, include=FALSE}
+figotMS <- ggbiplot(fitotMS_NEW, obs.scale = 1, var.scale = 1, 
+              ellipse = F, group=genusotMS, labels=fullnameotMS,
+              label.size = 6, varname.size = 4,
+              circle = F)
+
+#add pouchie data onto the plot dataframe
+figotMS$data <- rbind(figotMS$data, 
+  data.frame(
+    xvar = pouchie_otMSpoint[, "PC1"],
+    yvar = pouchie_otMSpoint[, "PC2"],
+    labels = "Cricetomys ansorgei",
+    groups = "Cricetomys"
+  )
+)
+
+
+figotMS <- figotMS  + scale_y_continuous(limits=c(-3, 3))
+figotMS <- figotMS + scale_x_continuous(limits=c(-5, 5))
+figotMS <- figotMS + scale_color_manual(values=tol15rainbow) + scale_fill_manual(values=tol15rainbow)
+figotMS <- figotMS + theme_few() + theme(legend.direction = 'horizontal', 
+                             legend.position = 'top', legend.title=element_blank())
+print(figotMS)
+
+##save to computer
+ggsave("FIGURE otr max species.png", width=8, height=6, dpi=600)
+
+```
+
+
+
+```{r OTR maximized regions, echo = FALSE, include=FALSE}
+# OTR maximized regions ---------------------------------------------------
+
+#OTR part 2 - maximizing brain regions
+
+
+otMR <- read.csv(file="otMR.csv")
+summary(otMR) 
+
+## save variables for OTR
+SpeciesotMR <- otMR$X
+fullnameotMR <- otMR$fullname
+FamilyotMR <- otMR$family
+genusotMR <- otMR$genus
+
+## again subset to have correct data type - no NAs, fewer vars than species
+otMRregions <- otMR[,5:15]
+
+# permutational MANOVA with family predictor
+adonis(otMRregions ~ FamilyotMR, data= otMR, perm = 1000)
+
+# permutational MANOVA with genus predictor
+adonis(otMRregions ~ genusotMR, data= otMR, perm = 1000)
+
+```
+
+
+```{r OTR maximized region plot, echo = FALSE, include=FALSE}
+#Fit a pca
+#fitotMR <- princomp(otMRregions, cor=T)
+#summary(fitotMR)
+#loadings(fitotMR)
+
+#####Adding new datapoint
+fitotMR_NEW <- prcomp(otMRregions, scale=TRUE, retx=TRUE)
+fitotMR_NEW$x
+summary(fitotMR_NEW)
+#this function is identical to princomp
+
+
+# project new data onto the PCA space
+pouchieotMR <- data.frame("NAcc" = 1, "LS" = 1, "VPal" = 1,  "BNST" = 2, "VMH" = 3, "CeA" = 2, "MeA" = 1, "BLA" = 2, "CA1" = 1, "CA3" = 1, "DG" = 0)
+pouchie_otMRpoint <- scale(pouchieotMR, fitotMR_NEW$center, fitotMR_NEW$scale) %*% fitotMR_NEW$rotation 
+
+
+
+
+#Create an OTR graph
+
+fig4 <- ggbiplot(fitotMR_NEW, obs.scale = 1, var.scale = 1, 
+              ellipse = F, group=genusotMR, labels=fullnameotMR,
+              label.size = 6, varname.size = 4,
+              circle = F)
+
+#add pouchie data onto the plot dataframe
+fig4$data <- rbind(fig4$data, 
+  data.frame(
+    xvar = pouchie_otMRpoint[, "PC1"],
+    yvar = pouchie_otMRpoint[, "PC2"],
+    labels = "Cricetomys ansorgei",
+    groups = "Cricetomys"
+  )
+)
+
+
+fig4  <- fig4   + scale_y_continuous(limits=c(-4, 4))
+fig4  <- fig4  + scale_x_continuous(limits=c(-6, 6))
+fig4  <- fig4  + scale_color_manual(values=tol12qualitative) + scale_fill_manual(values=tol12qualitative)
+fig4  <- fig4  + theme_few() + theme(legend.direction = 'horizontal', 
+                             legend.position = 'top', legend.title=element_blank()) 
+print(fig4)
+
+##save to computer
+ggsave("Figure 2 OTR max regions.png", width=8, height=6, dpi=600)
+
+```
+
+![a PCA, OTR with regions maximized](Figure 2 OTR max regions.png)
+
+![a PCA, OTR with species maximized](FIGURE otr max species.png)
 
 
 ![a PCA, V1aR with species maximized](Figure v1ar max species.png)
@@ -754,173 +938,10 @@ ggsave("Figure v1ar max regions.png", width=8, height=6, dpi=600)
 
 ![a PCA, V1aR with regions maximized](Figure v1ar max regions.png)
 
-```{r OTR maximized species, echo = FALSE, include=FALSE}
-
-# OTR ---------------------------------------------------------------------
-
-# OTR maximized species ---------------------------------------------------
-
-
-tol15rainbow=c("#114477", "#4477AA", "#77AADD", "#117755", "#44AA88", "#99CCBB", "#777711", "#AAAA44", "#DDDD77", "#771111", "#AA4444", "#DD7777", "#771144", "#AA4477", "#DD77AA")
-tol18rainbow=c("#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA", "#77CCCC", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788")
-
-
-
-otMS <- read.csv(file="otMS.csv")
-summary(otMS) 
-
-## save variables for OTR
-SpeciesotMS <- otMS$X
-fullnameotMS <- otMS$fullname
-FamilyotMS <- otMS$family
-genusotMS <- otMS$genus
-
-## again subset to have correct data type - no NAs, fewer vars than species
-otMSregions <- otMS[,5:11]
-
-#permutational MANOVA with family group as predictor
-adonis(otMSregions ~ FamilyotMS, data= otMS, perm = 1000)
-
-#permutational MANOVA with genus group as predictor
-adonis(otMSregions ~ genusotMS, data= otMS, perm = 1000)
-
-#Fit a pca
-#fitotMS <- princomp(otMSregions, cor=T)
-#summary(fitotMS)
-#loadings(fitotMS)
-
-#####Adding new datapoint
-
-fitotMS_NEW <- prcomp(otMSregions, scale=TRUE, retx=TRUE)
-fitotMS_NEW$x
-summary(fitotMS_NEW)
-#this function is identical to princomp
-
-
-# project new data onto the PCA space
-pouchieotMS <- data.frame("LS" = 1, "BNST" = 2, "CeA" = 2, "MeA" = 1, "CA1" = 1, "CA3" = 1, "DG" = 0)
-pouchie_otMSpoint <- scale(pouchieotMS, fitotMS_NEW$center, fitotMS_NEW$scale) %*% fitotMS_NEW$rotation 
-
-
-
-#set colors
-tol14rainbow=c("#882E72", "#B178A6", "#D6C1DE", "#1965B0", "#5289C7", "#7BAFDE", "#4EB265", "#90C987", "#CAE0AB", "#F7EE55", "#F6C141", "#F1932D", "#E8601C", "#DC050C")
-tol15rainbow=c("#114477", "#4477AA", "#77AADD", "#117755", "#44AA88", "#99CCBB", "#777711", "#AAAA44", "#DDDD77", "#771111", "#AA4444", "#DD7777", "#771144", "#AA4477", "#DD77AA")
-
-```
-
-```{r, echo = FALSE, include=FALSE}
-figotMS <- ggbiplot(fitotMS_NEW, obs.scale = 1, var.scale = 1, 
-              ellipse = F, group=genusotMS, labels=fullnameotMS,
-              label.size = 6, varname.size = 4,
-              circle = F)
-
-#add pouchie data onto the plot dataframe
-figotMS$data <- rbind(figotMS$data, 
-  data.frame(
-    xvar = pouchie_otMSpoint[, "PC1"],
-    yvar = pouchie_otMSpoint[, "PC2"],
-    labels = "Cricetomys ansorgei",
-    groups = "Cricetomys"
-  )
-)
-
-
-figotMS <- figotMS  + scale_y_continuous(limits=c(-3, 3))
-figotMS <- figotMS + scale_x_continuous(limits=c(-5, 5))
-figotMS <- figotMS + scale_color_manual(values=tol15rainbow) + scale_fill_manual(values=tol15rainbow)
-figotMS <- figotMS + theme_few() + theme(legend.direction = 'horizontal', 
-                             legend.position = 'top', legend.title=element_blank())
-print(figotMS)
-
-##save to computer
-ggsave("FIGURE otr max species.png", width=8, height=6, dpi=600)
-
-```
-
-![a PCA, OTR with species maximized](FIGURE otr max species.png)
 
 
 
 
-```{r OTR maximized regions, echo = FALSE, include=FALSE}
-# OTR maximized regions ---------------------------------------------------
-
-#OTR part 2 - maximizing brain regions
-
-
-otMR <- read.csv(file="otMR.csv")
-summary(otMR) 
-
-## save variables for OTR
-SpeciesotMR <- otMR$X
-fullnameotMR <- otMR$fullname
-FamilyotMR <- otMR$family
-genusotMR <- otMR$genus
-
-## again subset to have correct data type - no NAs, fewer vars than species
-otMRregions <- otMR[,5:15]
-
-# permutational MANOVA with family predictor
-adonis(otMRregions ~ FamilyotMR, data= otMR, perm = 1000)
-
-# permutational MANOVA with genus predictor
-adonis(otMRregions ~ genusotMR, data= otMR, perm = 1000)
-
-```
-
-
-```{r, echo = FALSE, include=FALSE}
-#Fit a pca
-#fitotMR <- princomp(otMRregions, cor=T)
-#summary(fitotMR)
-#loadings(fitotMR)
-
-#####Adding new datapoint
-fitotMR_NEW <- prcomp(otMRregions, scale=TRUE, retx=TRUE)
-fitotMR_NEW$x
-summary(fitotMR_NEW)
-#this function is identical to princomp
-
-
-# project new data onto the PCA space
-pouchieotMR <- data.frame("NAcc" = 1, "LS" = 1, "VPal" = 1,  "BNST" = 2, "VMH" = 3, "CeA" = 2, "MeA" = 1, "BLA" = 2, "CA1" = 1, "CA3" = 1, "DG" = 0)
-pouchie_otMRpoint <- scale(pouchieotMR, fitotMR_NEW$center, fitotMR_NEW$scale) %*% fitotMR_NEW$rotation 
-
-
-
-
-#Create an OTR graph
-
-fig4 <- ggbiplot(fitotMR_NEW, obs.scale = 1, var.scale = 1, 
-              ellipse = F, group=genusotMR, labels=fullnameotMR,
-              label.size = 6, varname.size = 4,
-              circle = F)
-
-#add pouchie data onto the plot dataframe
-fig4$data <- rbind(fig4$data, 
-  data.frame(
-    xvar = pouchie_otMRpoint[, "PC1"],
-    yvar = pouchie_otMRpoint[, "PC2"],
-    labels = "Cricetomys ansorgei",
-    groups = "Cricetomys"
-  )
-)
-
-
-fig4  <- fig4   + scale_y_continuous(limits=c(-4, 4))
-fig4  <- fig4  + scale_x_continuous(limits=c(-6, 6))
-fig4  <- fig4  + scale_color_manual(values=tol12qualitative) + scale_fill_manual(values=tol12qualitative)
-fig4  <- fig4  + theme_few() + theme(legend.direction = 'horizontal', 
-                             legend.position = 'top', legend.title=element_blank()) 
-print(fig4)
-
-##save to computer
-ggsave("Figure 2 OTR max regions.png", width=8, height=6, dpi=600)
-
-```
-
-![a PCA, OTR with regions maximized](Figure 2 OTR max regions.png)
 
 
 \newpage
