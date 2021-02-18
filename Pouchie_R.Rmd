@@ -62,16 +62,12 @@ V1PCAdata <-read.csv(file="C:/Users/HP/Documents/Work/Pouched_rat/autorad pouchi
 
 # Introduction 
 
-The neuropeptides, oxytocin (OT) and vasopressin (VP), have receptor distributions in the brain that can modulate a variety of social behaviors such as parental care, affiliation, and aggression, among other behaviors [@caldwellOxytocinVasopressinMotivational2015]. The densities of their associated receptors, oxytocin (OTR) and vasopressin (V1aR and V1bR) receptors, are often species- and sex-dependent.
- 
+The neuropeptides oxytocin (OT) and vasopressin (AVP) modulate a variety of social behaviors including parental care, affiliation, and aggression, among others [@caldwellOxytocinVasopressinMotivational2015]. These peptides act centrally through their associated receptors, the oxytocin (OTR) and vasopressin 1a and 1b (V1aR and V1bR) receptors. The nonapeptide system is well-conserved, evidenced by the presence of vasopressin or oxytocin or their homologues in mammals, birds, fish, snails, annelid worms and some insects [@donaldsonOxytocinVasopressinNeurogenetics2008]. Despite the conservation of the OT-AVP system, differences in the relative density and distribution of the OTR and V1aR exist between closely related species [e.g. @beeryOxytocinVasopressinReceptor2008; @campbellCentralVasopressinOxytocin2009; @inselPatternsBrainVasopressin1994; @kalamantiosTelencephalicBindingSites2010]. These differences are thought to support species-specific ecology and mating tactic [@olazabalVariationDensityOxytocin2020], and variation within a single species further supports this hypothesis [@ophirOxytocinReceptorDensity2012; @ophirVariationNeuralV1aR2008; @zhengFemaleAlternativeMating2013; @barrettVariationVasopressinReceptor2013].
 
->- What do we know about the distribution and relative densities of receptors (i.e. what can it tell us, what’s been done on behavior?) 
+In addition to between- and within-species variation in the distribution and relative density of these receptors, several species exhibit sex differences in receptor density [@dumaisVasopressinOxytocinReceptor2016; @inselComparativeDistributionForebrain1991; @campbellCentralVasopressinOxytocin2009; @beeryOxytocinVasopressinReceptor2008; @smeltzerDopamineOxytocinVasopressin2006; @dubois-dauphinExpressionVasopressinReceptors1991; @smithAgeSexDifferences2017; @dumaisSexDifferencesOxytocin2013]. These differences between the sexes are region-specific, and thought to support sex-specific behaviors [@dumaisVasopressinOxytocinReceptor2016]. In other species, and other studies, however, there are no reported sex-differences in receptor distribution in OTR or V1aR in the brain [@inselPatternsBrainVasopressin1994; @freemanCentralDistributionOxytocin2019; @limVentralStriatopallidalOxytocin2004]. Whether sex differences are observed depends on whether both sexes were studied, and whether areas that are sexually dimorphic with respect to receptor binding were measured. Nonetheless, exploring sex differences in receptor distribution can reveal insight into possible differences in nonapeptide system sensitivities between the sexes, and provides the essential foundation for further functional empirical studies.
 
->-How might life history differences play into patterning of central distribution of these receptors? 
+In order to understand the evolutionary trajectory of the nonapeptide system, several research teams have explored how the receptor structure and densities differ among species  [@barberisVasopressinOxytocinReceptors1996; @donaldsonOxytocinVasopressinNeurogenetics2008; @freemanComparisonDistributionOxytocin2020; @olazabalVariationDensityOxytocin2020]. This investigation into the deep homologies of oxytocin and vasopressin suggest that OTR and V1aR have had different selective pressures leading to variation among species [@freemanComparisonDistributionOxytocin2020], with variation allowing potentially for species- or genus- specializations in behavior. Comparative analyses such as these are essential for understanding how these systems have evolved, and to reach a 'unified theory of behavior' [@kellyComparedWhatWhat2015]. As an example, early studies in Microtus voles examining the distribution and density of receptors claimed to show that monogamy was driven by differences in a few specific brain regions [@inselOxytocinReceptorDistribution1992]. Yet, further work in Peromyscus mice showed that variation in receptor density and expression differed between monogamous mice and voles [@turnerMonogamyEvolvesMultiple2010; @inselComparativeDistributionForebrain1991]. Despite these differences, the role of oxytocin and vasopressin in modulating affiliation and cooperation across rodents and mammals has been repeatedly supported [@caldwellOxytocinVasopressinMotivational2015].
 
->-What tends to be conserved? 
-
->-How does comparative analysis help? [@kellyComparedWhatWhat2015] 
 
 >-Why did we do this study? What were we examining? 
 
@@ -949,6 +945,14 @@ ggsave("Figure v1ar max regions.png", width=8, height=6, dpi=600)
 
 # Discussion 
 
+Furthermore, it is sometimes assumed that differences in density are biologically meaningful, or support functional differences, however, these assumptions are rarely tested directly. Indeed, in addition to differences in receptor distribution and density, which are thought to underlie sensitivity to nonapeptides, differences in release, innervation, and connectivity can all lead to altered function in the OT-AVP system. Thus, receptor distribution and density is an important part of the nonapeptide system, but other differences in this system can modulate function and behavior.
+
+
+
+
+For example, nonmonogamous voles (e.g. Montane (_Microtus montanus_) and Meadow voles (_Microtus pennsylvanicus_)) have relatively denser V1aR binding in the lateral septum compared to closely-related socially monogamous voles (e.g. Prairie (_Microtus ochrogaster_) and Pine voles (_Microtus pinetorum_)) [@inselPatternsBrainVasopressin1994]. Furthermore, V1aR in the lateral septum is positively associated with high levels of social investigation in male prairie voles, while this behavior is negatively associated with OTR in the same region [Ophir2009a]. OTR signalling in prairie voles, however, supports partner preference [Johnson2016], and higher densities in the nucleus accumbens is associated with a monogamous mating tactic [Ophir2012].
+Outside of the _Microtine_ voles, OTR and V1aR distributions have been compared in tuco-tucos, where Beery et al. reported denser OTR binding in the lateral septum in _Ctenomys haigi_ compared to _Ctenomys sociabilis_, even though _C. Haigi_ is solitary, and _C. sociabilis_ is colonial [Beery2008]. In singing mice (_Scotinomys spp._), two vocal and social species that differ in density and space use patterns both had 
+ 
 
 >-We found OTR in … V1aR in…. 
 
