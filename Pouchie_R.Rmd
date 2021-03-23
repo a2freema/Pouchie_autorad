@@ -23,8 +23,7 @@ footnote:
   - code: 1
     text: "Corresponding Author"
 abstract: |
-  This is the abstract.
-  It consists of two paragraphs.
+   Vasopressin and oxytocin are well known modulators of social behavior. The distribution and relative densities of vasopressin and oxytocin receptors are known to modulate the sensitivity of an animal to these nonapeptides. To understand how these systems have evolved to support social behavior, comparative work is needed to determine where these systems have been conserved, and where they have changed over evolutionary time to support species-specific behaviors. To that end, we used receptor autoradiography to determine where vasopressin 1a and oxytocin receptors are in the pouched rat (_Cricetomys ansorgei_) brain, and their relative densities in specific brain regions. We then compared the relative receptor pattern to other rodents using a multivariate ANOVA. Pouched rat receptor patterns were similar overall to hamsters and voles. Uniquely, the pouched rat had dense vasopressin 1a receptor binding in the caudate putamen, which may modulate affiliative behavior in this species. The pouched rat had relatively little oxytocin receptor binding in the anterior forebrain, though there was extremely dense binding in the bed nucleus of the stria terminalis. Further investigation in both the behavioral ecology and vasopressin and oxytocin systems in this species will reveal how the patterns of receptor binding in this species support species-specific social behavior. 
 journal: "Journal of Neuroscience"
 date: "`r Sys.Date()`"
 bibliography: library.bib
@@ -62,18 +61,15 @@ V1PCAdata <-read.csv(file="C:/Users/HP/Documents/Work/Pouched_rat/autorad pouchi
 
 # Introduction 
 
-The neuropeptides oxytocin (OT) and vasopressin (AVP) modulate a variety of social behaviors including parental care, affiliation, and aggression, among others [@caldwellOxytocinVasopressinMotivational2015]. These peptides act centrally through their associated receptors, the oxytocin (OTR) and vasopressin 1a and 1b (V1aR and V1bR) receptors. The nonapeptide system is well-conserved, evidenced by the presence of vasopressin or oxytocin or their homologues in mammals, birds, fish, snails, annelid worms and some insects [@donaldsonOxytocinVasopressinNeurogenetics2008]. Despite the conservation of the OT-AVP system, differences in the relative density and distribution of the OTR and V1aR exist between closely related species [e.g. @beeryOxytocinVasopressinReceptor2008; @campbellCentralVasopressinOxytocin2009; @inselPatternsBrainVasopressin1994; @kalamantiosTelencephalicBindingSites2010]. These differences are thought to support species-specific ecology and mating tactic [@olazabalVariationDensityOxytocin2020], and variation within a single species further supports this hypothesis [@ophirOxytocinReceptorDensity2012; @ophirVariationNeuralV1aR2008; @zhengFemaleAlternativeMating2013; @barrettVariationVasopressinReceptor2013].
+The neuropeptides oxytocin (OT) and vasopressin (AVP) modulate a variety of social behaviors including parental care, affiliation, and aggression, among others [@caldwellOxytocinVasopressinMotivational2015]. These peptides act centrally through their associated receptors, the oxytocin (OTR) and vasopressin 1a and 1b (V1aR and V1bR) receptors. The nonapeptide system is well-conserved, evidenced by the presence of vasopressin, oxytocin, or their homologues in mammals, birds, fish, snails, annelid worms and some insects [@donaldsonOxytocinVasopressinNeurogenetics2008]. Despite the conservation of the OT-AVP system, differences in the relative density and distribution of the OTR and V1aR exist between closely related species [e.g. @beeryOxytocinVasopressinReceptor2008; @campbellCentralVasopressinOxytocin2009; @inselPatternsBrainVasopressin1994; @kalamantiosTelencephalicBindingSites2010]. These differences are thought to support species-specific ecology and mating tactic [@olazabalVariationDensityOxytocin2020], and variation within a single species further supports this hypothesis [@ophirOxytocinReceptorDensity2012; @ophirVariationNeuralV1aR2008; @zhengFemaleAlternativeMating2013; @barrettVariationVasopressinReceptor2013].
 
-In addition to between- and within-species variation in the distribution and relative density of these receptors, several species exhibit sex differences in receptor density [@dumaisVasopressinOxytocinReceptor2016; @inselComparativeDistributionForebrain1991; @campbellCentralVasopressinOxytocin2009; @beeryOxytocinVasopressinReceptor2008; @smeltzerDopamineOxytocinVasopressin2006; @dubois-dauphinExpressionVasopressinReceptors1991; @smithAgeSexDifferences2017; @dumaisSexDifferencesOxytocin2013]. These differences between the sexes are region-specific, and thought to support sex-specific behaviors [@dumaisVasopressinOxytocinReceptor2016]. In other species, and other studies, however, there are no reported sex-differences in receptor distribution in OTR or V1aR in the brain [@inselPatternsBrainVasopressin1994; @freemanCentralDistributionOxytocin2019; @limVentralStriatopallidalOxytocin2004]. Whether sex differences are observed depends on whether both sexes were studied, and whether areas that are sexually dimorphic with respect to receptor binding were measured. Nonetheless, exploring sex differences in receptor distribution can reveal insight into possible differences in nonapeptide system sensitivities between the sexes, and provides the essential foundation for further functional empirical studies.
+In addition to between- and within-species variation in the distribution and relative density of these receptors, several species exhibit sex differences in receptor density [@dumaisVasopressinOxytocinReceptor2016; @inselComparativeDistributionForebrain1991; @campbellCentralVasopressinOxytocin2009; @beeryOxytocinVasopressinReceptor2008; @smeltzerDopamineOxytocinVasopressin2006; @dubois-dauphinExpressionVasopressinReceptors1991; @smithAgeSexDifferences2017; @dumaisSexDifferencesOxytocin2013]. These differences between the sexes are region-specific, and thought to support sex-specific behaviors [@dumaisVasopressinOxytocinReceptor2016]. However, other species lack  sex-differences in receptor distribution in OTR or V1aR in the brain [@inselPatternsBrainVasopressin1994; @freemanCentralDistributionOxytocin2019; @limVentralStriatopallidalOxytocin2004]. Whether sex differences are observed depends on whether both sexes were studied, and whether areas that are sexually dimorphic with respect to receptor binding were measured. Nonetheless, exploring sex differences in receptor distribution can reveal insight into possible differences in nonapeptide system sensitivities between the sexes, and provides the essential foundation for further functional empirical studies.
 
-In order to understand the evolutionary trajectory of the nonapeptide system, several research teams have explored how the receptor structure and densities differ among species  [@barberisVasopressinOxytocinReceptors1996; @donaldsonOxytocinVasopressinNeurogenetics2008; @freemanComparisonDistributionOxytocin2020; @olazabalVariationDensityOxytocin2020]. This investigation into the deep homologies of oxytocin and vasopressin suggest that OTR and V1aR have had different selective pressures leading to variation among species [@freemanComparisonDistributionOxytocin2020], with variation allowing potentially for species- or genus- specializations in behavior. Comparative analyses such as these are essential for understanding how these systems have evolved, and to reach a 'unified theory of behavior' [@kellyComparedWhatWhat2015]. As an example, early studies in Microtus voles examining the distribution and density of receptors claimed to show that monogamy was driven by differences in a few specific brain regions [@inselOxytocinReceptorDistribution1992]. Yet, further work in Peromyscus mice showed that variation in receptor density and expression differed between monogamous mice and voles [@turnerMonogamyEvolvesMultiple2010; @inselComparativeDistributionForebrain1991]. Despite these differences, the role of oxytocin and vasopressin in modulating affiliation and cooperation across rodents and mammals has been repeatedly supported [@caldwellOxytocinVasopressinMotivational2015].
+In order to understand the evolutionary trajectory of the nonapeptide system, several research teams have explored how the receptor structure and densities differ among species  [@barberisVasopressinOxytocinReceptors1996; @donaldsonOxytocinVasopressinNeurogenetics2008; @freemanComparisonDistributionOxytocin2020; @olazabalVariationDensityOxytocin2020]. This investigation into the deep homologies of oxytocin and vasopressin suggest that OTR and V1aR have had different selective pressures leading to variation among species [@freemanComparisonDistributionOxytocin2020], with variation allowing potentially for specializations in behavior within species or genera. Comparative analyses such as these are essential for understanding how these systems have evolved, and to reach a 'unified theory of behavior' [@kellyComparedWhatWhat2015]. As an example, early studies in Microtus voles examining the distribution and density of receptors suggested monogamy was driven by differences in a few specific brain regions [@inselOxytocinReceptorDistribution1992]. Yet, further work in Peromyscus mice showed that variation in receptor density and expression differed between monogamous mice and voles [@turnerMonogamyEvolvesMultiple2010; @inselComparativeDistributionForebrain1991]. Therefore, to understand how the OT-VP system modulates behavior, many taxa will need to be studied to understand how the conservation of receptor distribution impacts behavior. Despite these differences in receptor distribution between monogamous voles and Peromyscus mice, the role of OT and AVP in broadly modulating affiliation and cooperation across rodents and mammals has been repeatedly supported [@caldwellOxytocinVasopressinMotivational2015].
 
+The African giant pouched rat (_Cricetomys ansorgei_) is a large, nocturnal rodent native to sub-Saharan Africa. This species is known for its olfactory behavior and capabilities [@freemanGiantPouchedRat2020; @polingUsingGiantAfrican2010; @weetjensAfricanPouchedRats2009], which are thought to be due to its relatively large olfactory bulbs [@ibeFunctionalMorphologyBrain2014]. The pouched rat's common name is partially based on its convergent rat-like appearance since these species are only distantly related to traditional lab mouse and rat models [@olayemiTaxonomyAfricanGiant2012; @steppanMuroidRodentPhylogenetics2017]. There are very few studies describing the behavior of pouched rats, and fewer describing _C. ansorgei_ specifically. However, the aggressive behavior between unfamiliar animals and territorial scent marking behavior [@freemanScentmarkingBehaviorSouthern2018] suggests that these animals might prefer to live in small family groups. In studies of _C. gambianus_, in groups of up to six animals only one male and female would successful pair and mate, and parental care is largely provided by the female [@ajayiBehaviouralChangesAfrican1978]. In the field, groups of pouched rats have been located, but it unclear how common these are, or if the animals were related or part of a family group [@cooperAfricanGiantPouched2014].
 
->-Why did we do this study? What were we examining? 
-
->-We wanted to describe the presence and relative density of OTR and V1aR in pouched rat brains in males and females, to see if there were differences in presence and density between sexes 
-
->-We wanted to explore how the patterning of these receptors might differ from other rodents and see if it further supports the ideas found in the recent metaanalysis [@freemanComparisonDistributionOxytocin2020](see where pouched rats fall in this framework) 
+Given the importance of the OT and AVP system in social behavior, and the need for additional comparative work exploring the evolution of these peptides, we sought to describe the distribution of OTR and V1aR in the brain of the southern giant pouched rat (_C. ansorgei_). We hypothesized that differences between the sexes might support sex-specific behaviors in this species similar to sex differences seen in other rodents. We hypothesized that the patterning of these receptors' densities across specific regions might differ from other rodents in ways that mirror the current phylogeny, whereby pouched rats would be similar to both Murinae and Cricetidae.
 
  
  
@@ -84,9 +80,9 @@ All work with animals was approved under the U.S. Army Medical Research and Mate
 
 Animals were euthanized via CO~2~ inhalation and brains were swiftly removed and frozen using liquid nitrogen or powdered dry ice and stored at -80&deg;C prior to sectioning. Ten male and ten female brains were used for this study. Brains were blocked coronally by removing the cerebellum, then split sagittally next to the midline into two hemispheres, and one hemisphere (preferably the left if unblemished) was coronally sectioned at 20µm thick using a Leica cryostat (CM1950, Leica Biosystems, Nussloch, Germany) set at -20&deg;C. Due to the large size of the pouched rat brains, we mounted every 3rd section and kept 6 serial sets. Sections were collected from the olfactory bulbs to the start of the cerebellum, and mounted on Superfrost Plus Microscope sides (Fisher Scientific, Pittsburg, PA USA). Microscope slides were stored at -80ºC until the autoradiography procedure.
 
-On two of the sets of slides, we used ^125^I radioligands to label oxytocin receptor (ornithine vasopressin analog, ^125^I-OVTA); NEX 254, PerkinElmer; Waltham, MA) or vasopressin 1a receptor (vasopressin (Linear), V-1A antagonist (Phenylacetyl1, 0-Me-D-Tyr2 [ ^125^I-Arg6 ]-); NEX 310, PerkinElmer), as described by Ophir and colleagues [@ophirStabilityDynamicsForebrain2013]. Following processing and air-drying, we exposed radiolabeled tissue to film (Kodak Carestream Biomax MS) for 6 days for OTR and 2 days for V1aR to account for differing degrees of decay at the time of use. In each film cassette, we included two ^125^I microscales (American Radiolabeled Chemicals; St Louis, MO), to allow for the conversion of optical density to receptor density. We inferred that receptor density relates to optical density of exposed film to use optical measurements as a proxy for receptor density. We digitized films on a Microtek ArtixScan M1 (Microtek, Santa Fe Springs, CA) and measured optical densities using NIH ImageJ Software. We calculated receptor density by first converting optical density to disintegrations per minute (dpm) adjusted for tissue equivalence (TE; for 1 mg in the rat brain), by fitting curves generated by radiographic standards and extrapolating based on these standard curves for each film.
+On two of the sets of slides, we used ^125^I radioligands to label oxytocin receptor (ornithine vasopressin analog, ^125^I-OVTA); NEX 254, PerkinElmer; Waltham, MA) or vasopressin 1a receptor (vasopressin (Linear), V-1A antagonist (Phenylacetyl1, 0-Me-D-Tyr2 [ ^125^I-Arg6 ]-); NEX 310, PerkinElmer), as described by Ophir and colleagues [@ophirStabilityDynamicsForebrain2013]. Following processing and air-drying, we exposed radiolabeled tissue to film (Kodak Carestream Biomax MR) for 6 days for OTR and 2 days for V1aR to account for differing degrees of decay at the time of use. In each film cassette, we included two ^125^I microscales (American Radiolabeled Chemicals; St Louis, MO), to allow for the conversion of optical density to receptor density. We inferred that receptor density relates to optical density of exposed film, and we therefore used optical measurements as a proxy for receptor density. We digitized films on a Microtek ArtixScan M1 (Microtek, Santa Fe Springs, CA) and measured optical densities using NIH ImageJ Software. We calculated receptor density by first converting optical density to disintegrations per minute (dpm) adjusted for tissue equivalence (TE; for 1 mg in the rat brain), by fitting curves generated by radiographic standards and extrapolating based on these standard curves for each film.
 
-Three sequential sections were measured for density by encircling the regions of interest using NIH ImageJ software. The software program calculated mean optical density values and area for regions of interest (ROI). We measured background labelling by measuring optical density from an area of cortex in the same section for each region of interest. To correctly identify ROI, we Nissl-stained a third set of tissue to use as a reference, in conjunction with anatomical landmarks identified using a Rat brain atlas. The three measurements for each individual's ROIs and background were averaged separately, and background was subtracted from the ROI to yield receptor density. These final measurements were used for all statistical tests, tables, and figures.
+Three sequential sections were measured for density by encircling the regions of interest using NIH ImageJ software. The software program calculated mean optical density values and area for regions of interest (ROI). We measured background labelling by measuring optical density from an area of cortex with no visually apparent binding in the same section for each region of interest. To correctly identify ROI, we Nissl-stained a third set of tissue to use as a reference, in conjunction with anatomical landmarks identified using a Rat brain atlas. The three measurements for each individual's ROIs and background were averaged separately, and background was subtracted from the ROI to yield receptor density. These final measurements were used for all statistical tests, tables, and figures.
 
 OTR density was measured in the olfactory bulb (OB), anterior olfactory nucleus (AON), prefrontal cortex (PFC), piriform cortex (Pir), nucleus accumbens (NAcc), lateral septum (LS), endopiriform (Den), claustrum (VCL), lateral bed nucleus of the stria terminalis (BSTl), medial bed nucleus of the stria terminalis (BSTm), ventral bed nucleus of the stria terminalis (BSTv), ventral pallidum (VPall), medial preoptic area (MPOA), anterior hypothalamus (AH), paraventricular thalamus (PVT), suprachiasmatic nucleus (SCN), paraventricular nucleus (PVN), magnocellular hypothalamic nucleus (MCPO), medial habenula (MHb), central amygdala (CeA), medial amygdala (MeA), basolateral amygdala (BLA), ventromedial hypothalamus (VMH), zona incerta (ZIR), lateral hypothalamus (PrFLH), hippocampal CA1, hippocampal CA2, hippocampal CA3, dentate gyrus (DG), premammilary ventral nucleus (PMV), ventral tegmental area (VTA), periaqueductal gray (PAG), medial geniculate (MG), superior colliculus (SuG), and the ventral CA3. V1aR was measured in the same regions except for the MCPO and the MHb.
 
@@ -94,7 +90,7 @@ To calculate 'relative binding' on a 4-point scale, we used the following defini
 
 We used the framework from Freeman et al. (2020) to compare overall binding patterns in the pouched rat to those in other rodents [@freemanComparisonDistributionOxytocin2020]. This framework uses overall OTR and V1aR binding patterns to examine similarities among species, genera, and family groups. Briefly, relative binding patterns within a species are converted to a 4-point scale, using wording and data from previously published studies. These data are then used in a principal components analysis, and species are plotted along the PC1 and PC2 components, with vectors in the plot serving as weights of each variable, and the direction indicating loading on PC1 and PC2. 
 
-We mapped pouched rat relative binding data onto this plot based on this framework and the data presented in this study. In addition to superimposing the pouched rat onto the PCA biplot, we conducted a comparative permutational anova (Adonis function) to examine whether genus or family groups predicted similarities among species' relative binding patterns using the previously published data and the data from this paper. All analyses were conducted in R 4.0.2, with the vegan package for the 'adonis' function, and stats package for t tests and principal components analysis [@rdevelopmentcoreteamLanguageEnvironmentStatistical2016]. PCA biplots were made using the ggbiplot function in the ggbiplot package with some aesthetic changes.
+We mapped pouched rat relative binding data onto this plot based on this framework and the data presented in this study. In addition to superimposing the pouched rat onto the PCA biplot, we conducted a comparative permutational MANOVA ('Adonis' function) to examine whether genus or family groups predicted similarities among species' relative binding patterns using the previously published data and the data from this paper. All analyses were conducted in R 4.0.2, with the vegan package for the 'Adonis' function, and stats package for t-tests and principal components analysis [@rdevelopmentcoreteamLanguageEnvironmentStatistical2016]. PCA biplots were made using the ggbiplot function in the ggbiplot package with some aesthetic changes.
 
 # Results 
 
@@ -211,7 +207,7 @@ t.test(BSTv..final. ~Sex, data=V1data)
 t.test(Ventral.CA3..final. ~Sex, data=V1data)
 ```
 
-After comparing male and female densities in the measured regions, most regions showed no differences between sexes. The superior colliculus had higher densities of OTR in females compared to males (Table 1, Female mean: `r round(scol.OT$estimate[1], digits= 2)`, Male mean `r round(scol.OT$estimate[2], digits = 2)`, t~(`r round(scol.OT$parameter, digits = 2)`)~ = `r round(scol.OT$statistic, digits = 2)`, p = `r round(scol.OT$p.value, digits = 2)`), however, this was no longer significant after corrections for multiple comparisons (adjusted $\alpha$ = 0.001).
+After comparing male and female densities in the measured regions, most regions showed no significant differences between sexes. The superior colliculus had higher densities of OTR in females compared to males (Table 1, Female mean: `r round(scol.OT$estimate[1], digits= 2)`, Male mean `r round(scol.OT$estimate[2], digits = 2)`, t~(`r round(scol.OT$parameter, digits = 2)`)~ = `r round(scol.OT$statistic, digits = 2)`, p = `r round(scol.OT$p.value, digits = 2)`), however, this was no longer significant after corrections for multiple comparisons (adjusted $\alpha$ = 0.001).
 
 
 ```{r pouchie ot data, echo=FALSE, results="hide"}
@@ -551,31 +547,6 @@ mypgenus <- pouchie_adonisdata$genus
 
 ```
 
-```{r Adonis functions, echo=FALSE, include = FALSE}
-##pouchie included adonis.
-glimpse(pouchie_adonisdata)
-Fam1 <- adonis(pouchie_MSregions ~ Familypg, data= pouchie_adonisdata, perm = 1000)
-Gen1 <- adonis(pouchie_MSregions ~ mypgenus, data= pouchie_adonisdata, perm = 1000)
-
-
-## Permutational MANOVA with family group (V1aR maximized species)
-glimpse(v1MS)
-adonis(v1MSregions ~ Familyg, data= v1MS, perm = 1000)
-
-## Permutational MANOVA with genus group (V1aR maximized species)
-adonis(v1MSregions ~ mygenus, data= v1MS, perm = 1000)
-
-u_char_inspect(0xB2)
-```
-
-
-```{r Adonis tables V1aR, echo=FALSE}
-
-knitr::kable(Fam1$aov.tab, align='lc', caption="V1aR Maximized species Permutational Manova by family", col.names = c( "Df", "SS", "MS", "F", "R²", "p"))
-
-
-knitr::kable(Gen1$aov.tab, align='lc', caption="V1aR Maximized species Permutational Manova by genus", col.names = c( "Df", "SS", "MS", "F", "R²", "p"))
-```
 
 
 
@@ -643,11 +614,11 @@ print(figv1MS)
 ggsave("Figure v1ar max species.png", width=8, height=6, dpi=600)
 ```
 
-Comparing the overall patterns of binding of OTR to other rodents, the pouched rat was most similar in OTR binding to Microtus voles due to low binding in the hippocampus, but relatively high binding in the VMH (Figure 11). In these PCA biplots, the relative location of a species represents its pattern of binding in the regions identified at the end of the vectors. Therefore, species with similar receptor binding patterns will be positioned close together in the plot. The direction of these brain region vectors (i.e. arrows) indicates relative loading on PC1 and PC2, and the length of the vector indicates the weight associated with the two principal components. Therefore, a species placed near the end of a vector typically indicates relatively dense binding in that region compared to other regions in the plot. 
+Comparing the overall patterns of binding of OTR to other rodents, the pouched rat was most similar in OTR binding to Microtus voles due to low binding in the hippocampus, but relatively high binding in the VMH (Figure 11). In these PCA biplots, the relative location of a species represents its pattern of binding in the regions identified at the end of the vectors. Therefore, species with similar receptor binding patterns will be positioned close together in the plot. The direction of these brain region vectors (i.e., arrows) indicates relative loading on PC1 and PC2, and the length of the vector indicates the weight associated with the two principal components. Therefore, a species placed near the end of a vector typically indicates relatively dense binding in that region compared to other regions in the plot. 
 
 When the number of species included in the analysis was maximized, the pouched rat was placed relatively centrally in the plot, and clustered with a number of other rodents, suggesting that the overall patterns of OTR binding in the pouched rat brain in these regions were very similar to a most other studied rodents (Figure 12).
 
-The multivariate comparison of V1aR binding, with the number of species included maximized, showed that the pouched rat was placed relatively close to the hamsters (_Phodopus sungorus_, _Meriones shawi_ and _Meriones unguiculatus_). However, when the number of regions included was increased, the pouched rat became more distant from these hamsters, indicating that binding patterns in these newly included regions (the Hippocampal regions and Basolateral amygdala) were different between hamsters and the pouched rat and resulted in additional variance. In this analysis, with the number of regions included maximized, the pouched rat is placed between the peromyscus mice and the microtus voles in the plot.
+The multivariate comparison of V1aR binding, with the number of species included maximized, showed that the pouched rat was placed relatively close to the hamsters (_Phodopus sungorus_, _Meriones shawi_ and _Meriones unguiculatus_). However, when the number of regions included was increased, the pouched rat became more distant from these hamsters, indicating that binding patterns in these newly included regions (the Hippocampal regions and Basolateral amygdala) were different between hamsters and the pouched rat and resulted in additional variance. In this analysis, with the number of regions included maximized, the pouched rat is placed between the Peromyscus mice and the Microtus voles in the plot.
 
 ```{r OTR maximized species, echo = FALSE, include=FALSE}
 
@@ -943,36 +914,99 @@ ggsave("Figure v1ar max regions.png", width=8, height=6, dpi=600)
 \newpage
 
 
+
+```{r Adonis functions, echo=FALSE, include = FALSE}
+
+##OTR pouchie
+pouchieotMS
+otMS
+OTnew <- c(x = 'Pouched rat', family = 'Nesomyidae', genus = 'Cricetomys', fullname = 'Cricetomys ansorgei', LS = as.numeric('1'), BNST = as.numeric('2'), CeA = as.numeric('2'), MeA = as.numeric('1'), CA1 = as.numeric('1'), CA3 = as.numeric('1'), DG = as.numeric('0'))
+
+
+pouchie_OTadonisdata <- rbind(otMS, OTnew)
+pouchie_OTadonisdata$CA1 <- as.numeric(as.character(pouchie_OTadonisdata$CA1))
+pouchie_OTadonisdata$CA3 <- as.numeric(as.character(pouchie_OTadonisdata$CA3))
+pouchie_OTadonisdata$LS <- as.numeric(as.character(pouchie_OTadonisdata$LS))
+pouchie_OTadonisdata$BNST <- as.numeric(as.character(pouchie_OTadonisdata$BNST))
+pouchie_OTadonisdata$CeA <- as.numeric(as.character(pouchie_OTadonisdata$CeA))
+pouchie_OTadonisdata$MeA <- as.numeric(as.character(pouchie_OTadonisdata$MeA))
+pouchie_OTadonisdata$DG <- as.numeric(as.character(pouchie_OTadonisdata$DG))
+
+glimpse(pouchie_OTadonisdata)
+pouchie_OT_all <- pouchie_OTadonisdata[,5:10]
+
+FamOT1 <- adonis(pouchie_OT_all ~ family, data= pouchie_OTadonisdata, perm = 1000)
+GenOT1 <- adonis(pouchie_OT_all ~ genus, data= pouchie_OTadonisdata, perm = 1000)
+
+rownames(FamOT1$aov.tab) <- c("Family", "Residuals", "Total")
+rownames(GenOT1$aov.tab) <- c("Genus", "Residuals", "Total")
+
+
+
+##V1aR pouchie included adonis.
+glimpse(pouchie_adonisdata)
+Fam1 <- adonis(pouchie_MSregions ~ Familypg, data= pouchie_adonisdata, perm = 1000)
+Gen1 <- adonis(pouchie_MSregions ~ mypgenus, data= pouchie_adonisdata, perm = 1000)
+
+
+## Permutational MANOVA with family group (V1aR maximized species)
+glimpse(v1MS)
+adonis(v1MSregions ~ Familyg, data= v1MS, perm = 1000)
+
+## Permutational MANOVA with genus group (V1aR maximized species)
+adonis(v1MSregions ~ mygenus, data= v1MS, perm = 1000)
+
+u_char_inspect(0xB2)
+rownames(Fam1$aov.tab) <- c("Family", "Residuals", "Total")
+rownames(Gen1$aov.tab) <- c("Genus", "Residuals", "Total")
+```
+
+
+
+Genus, but not family, predicted both OTR and V1aR density patterns in the permutational manovas (Table 5, 6, 7, 8). This means that the between genus variance was larger than the within genus variance. However, the variance in binding patterns was not predicted by family when pouched rats were added to the other rodent species.
+
+
+```{r Adonis tables OTR, echo=FALSE}
+
+
+knitr::kable(FamOT1$aov.tab, align='lc', caption="OTR Maximized species Permutational Manova by family", col.names = c( "Df", "SS", "MS", "F", "R²", "p"), digits = 3)
+
+
+knitr::kable(GenOT1$aov.tab, align='lc', caption="OTR Maximized species Permutational Manova by genus", col.names = c( "Df", "SS", "MS", "F", "R²", "p"), digits = 3)
+```
+
+
+```{r Adonis tables V1aR, echo=FALSE}
+
+
+knitr::kable(Fam1$aov.tab, align='lc', caption="V1aR Maximized species Permutational Manova by family", col.names = c( "Df", "SS", "MS", "F", "R²", "p"), digits = 3)
+
+
+knitr::kable(Gen1$aov.tab, align='lc', caption="V1aR Maximized species Permutational Manova by genus", col.names = c( "Df", "SS", "MS", "F", "R²", "p"), digits = 3)
+```
+
+
+
+
 # Discussion 
 
-Furthermore, it is sometimes assumed that differences in density are biologically meaningful, or support functional differences, however, these assumptions are rarely tested directly. Indeed, in addition to differences in receptor distribution and density, which are thought to underlie sensitivity to nonapeptides, differences in release, innervation, and connectivity can all lead to altered function in the OT-AVP system. Thus, receptor distribution and density is an important part of the nonapeptide system, but other differences in this system can modulate function and behavior.
+The pouched rat distributions of OTR and V1aR in the brain are similar to other rodents (as predicted), with a few regions showing unexpected binding. Notably, there was relatively little OTR binding in the anterior parts of the forebrain. There was little OTR binding in the olfactory bulbs and medial prefrontal cortex. These regions typically have more dense distributions of OTR (e.g. Guinea Pig [@tribolletLocalizationCharacterizationBinding1992], Prairie vole [@inselOxytocinReceptorDistribution1992], Mouse [@inselGonadalSteroidsHave1993], Meadow vole [@beeryOxytocinSamesexSocial2010], Rat [@tribolletOxytocinReceptorsCentral1992]). The light density of binding in the lateral septum compared to dense binding in the bed nucleus of the stria terminalis is unique, and most species that are abundant in the BNST are also abundant in OTR in the LS (e.g. California mouse [@inselComparativeDistributionForebrain1991], deer mouse [@inselComparativeDistributionForebrain1991], Alston's singing mouse [@campbellCentralVasopressinOxytocin2009], Long-tailed singing mouse  [@campbellCentralVasopressinOxytocin2009], Richardson's ground squirrel [@freemanCentralDistributionOxytocin2019], Colonial ice rat [@goldnerSocialRecognitionTelencephalic2016], Vlei rat [@goldnerSocialRecognitionTelencephalic2016]; but see Rat [@tribolletOxytocinReceptorsCentral1992], Naked mole-rat [@kalamantiosTelencephalicBindingSites2010], Prairie vole [@inselOxytocinReceptorDistribution1992]). The pattern of dense binding in the BNST but little in the LS has only been reported in two species thus far: the Prairie vole [@inselOxytocinReceptorDistribution1992] and the Naked mole-rat [@kalamantiosTelencephalicBindingSites2010]. There are few similarities between these rodents, so biological relevance (if any) is unknown.
 
+Other regions that showed interesting OTR density patterns included the VMH and the amygdalar nuclei, which had relatively dense binding. The VMH had the most dense OTR binding compared to all other regions in the pouched rat. We also detected binding in all of the amygdala subnuclei. OTR is commonly found in these regions in other rodents [@freemanConservedDerivedPatterns2019], with binding in the basolateral amygdala less common than in central or medial nuclei. OTR binding in the VMH is highly-variable among rodents, and explains a large amount of brain-wide pattern variance of OTR ([@freemanConservedDerivedPatterns2019]; Figure 11). The VMH well-known for its regulation of female sex behavior [@flanagan-catoSexDifferencesNeural2011], and OTR in this region is modulated by gonadal steroids [@baleRegulationOxytocinReceptor1995; @uhl-bronnerSexuallyDimorphicExpression2005]. When sex differences of OTR binding have been observed in the VMH, males typically have denser binding than females [@beeryOxytocinVasopressinReceptor2008; @dumaisSexDifferencesOxytocin2013; @smithAgeSexDifferences2017; @uhl-bronnerSexuallyDimorphicExpression2005], though exceptions exist [@tribolletUpRegulationVasopressinAngiotensin2002], and may be related to steroids during development and adulthood [@smithAgeSexDifferences2017; @uhl-bronnerSexuallyDimorphicExpression2005]. In the pouched rat both males and females had similarly dense OTR binding. It is unknown whether developmental effects or hormonal cycling in the pouched rat might have impacted this binding in the OTR. Given the unique reproductive biology where some females can remain reproductively quiescent for years [@freemanAnogenitalDistancePredicts2019], exploring the interaction between reproductive state and OTR in the VMH may yield insight into the neuroendocrine modulation of this phenomenon.
 
+Pouched rats have more extensive V1aR binding compared to OTR binding throughout the brain. Similar to many other rodents, pouched rats had V1aR binding in the olfactory system nuclei, the LS, BNST, Nac, amygdala, and VPal. Perhaps most striking is the dense V1aR binding throughout the caudate putamen (Figures 6 and 7). No other rodent to date has shown uniform V1aR binding in the stratium (caudate putamen), indeed the only other known rodent with V1aR in the caudate putamen is _Meriones shawi_, and the binding is restricted to the ventromedial portion [@rabhiHistoradioautographicLocalisationOxytocin1999]. In _M. shawi_, V1aR was localized to a number of other straitopallidal regions including the vental pallidum, nucleus accumbens, fundus striati (fStr), and amydalostriatal transition area (aStr) [@rabhiHistoradioautographicLocalisationOxytocin1999]. Though we did not quantify V1aR binding in the fStr and aStr separately, the pouched rat has binding in these regions of the striatum as well. Indeed, patterns of V1aR binding in the pouched rat and _M. shawi_ are similar among other regions, as both species have V1aR in the endopiriform, the lateral hypothalamus, the paraventricular nucleus of the thalamus, and the central amygdala. The main difference seems to be that the pouched rat has more relatively more V1aR binding in the VMH, while _M. shawi_ has relatively more binding in the hippocampus. 
 
+Another species with V1aR in the striatum is the coppery titi monkey (_Callicebus cupreus_), where the receptor is diffuse throughout this brain structure [@freemanNeuroanatomicalDistributionOxytocin2014a]. While the function of V1aR in the striatum has not been directly studied in this species, OTR in the striatopallidum in voles is important for the modulation of pairbonding behaviors. @freemanNeuroanatomicalDistributionOxytocin2014a suggest that in the titi monkey, V1aR might have a similar function, though empirical work is needed. Some work in the pouched rat (_C. gambianus_) suggests that within small groups only one pair will breed, forming what appears to be a socially-mongamous bond [@ajayiBehaviouralChangesAfrican1978]. Potentially the abundance of V1aR throughout the straitopallidum could modulate some of these selective affiliative behaviors in the pouched rat.
 
-For example, nonmonogamous voles (e.g. Montane (_Microtus montanus_) and Meadow voles (_Microtus pennsylvanicus_)) have relatively denser V1aR binding in the lateral septum compared to closely-related socially monogamous voles (e.g. Prairie (_Microtus ochrogaster_) and Pine voles (_Microtus pinetorum_)) [@inselPatternsBrainVasopressin1994]. Furthermore, V1aR in the lateral septum is positively associated with high levels of social investigation in male prairie voles, while this behavior is negatively associated with OTR in the same region [Ophir2009a]. OTR signalling in prairie voles, however, supports partner preference [Johnson2016], and higher densities in the nucleus accumbens is associated with a monogamous mating tactic [Ophir2012].
-Outside of the _Microtine_ voles, OTR and V1aR distributions have been compared in tuco-tucos, where Beery et al. reported denser OTR binding in the lateral septum in _Ctenomys haigi_ compared to _Ctenomys sociabilis_, even though _C. Haigi_ is solitary, and _C. sociabilis_ is colonial [Beery2008]. In singing mice (_Scotinomys spp._), two vocal and social species that differ in density and space use patterns both had 
- 
+Similar to most other rodents, the pouched rat had V1aR binding in the central and medial amygdala, but little to no binding in the basolateral amygdala. This specific pattern is similar to singing mice [@campbellCentralVasopressinOxytocin2009], montane, prairie, and meadow voles [@inselPatternsBrainVasopressin1994; @wangSpeciesDifferencesVasopressin1997], though most rodents have some binding in at least one amygdalar nuclei [@freemanComparisonDistributionOxytocin2020]. V1aR in the medial amygdala in mice is important for processing social stimuli that enables social recognition [@bielskyV1aVasopressinReceptor2005], largely due to the input from the olfactory system [@wackerVasopressinOxytocinSocial2012]. Vasopressin signaling in the central amygdala, however, is important in maternal aggression [@boschVasopressinReleasedCentral2010]. The role of vasopressin in the amygdala in the pouched rat likely is in processing affective salience of stimuli [@morrisonRevaluingAmygdala2010], though its role in specific behaviors in the pouched rat needs empirical study.
 
->-We found OTR in … V1aR in…. 
+The presence of V1aR in the VTA has been previously identified in Syrian hamsters [@songActivationOxytocinReceptors2016] and in low levels in both prairie and montane voles [@inselPatternsBrainVasopressin1994]. The role of vasopressin here is understudied, though since the VTA has dopaminergic projections to the Nacc, it might modulate the rewarding properties of social interactions [@curtisVentralTegmentalArea2005]. In Syrian hamsters, vasopressin in the VTA can impact self grooming behavior, though OT appears to be the main modulator of social reward in the VTA of the hamster [@songActivationOxytocinReceptors2016]. Nearly all vertebrates have vasorpessin or vasotocin immunoreactivity in the VTA (and PAG) allowing for local modulation of the dopaminergic reward circuitry [@goodsonSocialBehaviorFunctions2001].
 
->-Sex differences in densities/presence and absence 
+V1aR binding in the PAG is common in rodents including voles, rats, hamsters, singing mice, and gerbils [@dubois-dauphinRegionalDifferencesTestosterone1994; @inselPatternsBrainVasopressin1994; @rabhiHistoradioautographicLocalisationOxytocin1999; @smithAgeSexDifferences2017; @wangSpeciesDifferencesVasopressin1997; @lakhdar-ghazalVasopressinBrainDesert1995; @valletVasopressinBindingCerebral1995]. The PAG is part of the social behavior neural network and is reciprocally connected to other regions here which together are proposed as modulating social behavior [@newmanMedialExtendedAmygdala1999; @smithComparingVasopressinOxytocin2019]. The specific role of AVP-V1aR signalling is unknown, though injections of AVP in the PAG impact flank marking behavior in hamsters [@albersRegulationSocialRecognition2012; @hennesseyVasopressinSexDifferences1994].
 
->-We found that overall patterns were similar to….. 
+This description of the distribution of V1aR and OTR in the pouched rat provides insight into the conservation and plasticity of these neuropeptide systems. Unfortunately, we do not know the precise age of these animals, their previous reproductive status, or the experiences they had while in wild populations. We cannot know whether these variables could have impacted relative densities of receptors in these animals. Furthermore, it is sometimes assumed that differences in density are biologically meaningful, or support functional differences, however, these assumptions are rarely tested directly. In addition to differences in receptor distribution and density, which are thought to underlie sensitivity to nonapeptides, differences in release, innervation, and connectivity can all lead to altered function in the OT-AVP system. Thus, receptor distribution and density is an important part of the nonapeptide system, but other differences in this system can further modulate function and behavior.
 
->-Caveats 
-
->>-Unknown age 
-
->>-Unknown reproductive status 
-
->>-Different experiences possible 
-
->-What this means, similarities to other species 
-
->-Relevance for behavior or life history 
-
-What still needs to be known? 
+In summary, the pouched rat has V1aR and OTR binding patterns that are similar overall to hamsters and voles. Uniquely, the pouched rat has extensive V1aR binding throughout the caudate putamen, which might function to modulate affiliative behaviors. Although the biological function for the distribution of these receptors is hypothesized based on other species, this description of the presence and density of V1aR and OTR is essential for further empirical study, including further comparative work exploring the evolution of the nonapeptide system in supporting social behavior.
 
 
 References {#references .unnumbered}
